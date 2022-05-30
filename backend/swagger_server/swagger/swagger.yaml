@@ -1,0 +1,132 @@
+openapi: 3.0.0
+info:
+  title: Simple Inventory API
+  description: This is a simple API
+  contact:
+    email: you@your-company.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/mabaums/Personal_Website/1.0.0
+  description: SwaggerHub API Auto Mocking
+tags:
+- name: admins
+  description: Secured Admin-only calls
+- name: developers
+  description: Operations available to regular developers
+paths:
+  /teams:
+    get:
+      tags:
+      - client
+      summary: returns Teams
+      description: |
+        Returns all of the teams in the EPL and their rank.
+      operationId: get_teams
+      responses:
+        "200":
+          description: all teams
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Team'
+                x-content-type: application/json
+      x-openapi-router-controller: swagger_server.controllers.client_controller
+components:
+  schemas:
+    Team:
+      required:
+      - attendance
+      - draws
+      - ga
+      - gd
+      - gf
+      - goalkeeper
+      - losses
+      - mp
+      - notes
+      - pts
+      - rk
+      - squad
+      - top_scorer
+      - wins
+      - xG
+      - xGA
+      - xGD
+      - xGD90
+      type: object
+      properties:
+        Rk:
+          type: integer
+          example: 1
+        Squad:
+          type: string
+          example: Chelsea FC
+        MP:
+          type: integer
+          example: 38
+        W:
+          type: integer
+          example: 25
+        D:
+          type: integer
+          example: 0
+        L:
+          type: integer
+          example: 0
+        GF:
+          type: integer
+          example: 50
+        GA:
+          type: integer
+          example: 50
+        GD:
+          type: string
+          example: "50"
+        xGA:
+          type: number
+          example: 32.7
+        xG:
+          type: number
+          example: 25.7
+        xGD:
+          type: string
+          example: "-12"
+        xGD/90:
+          type: string
+          example: "-1.3"
+        Attendance:
+          type: number
+          example: 52000
+        top_scorer:
+          type: string
+          example: Eden Hazard
+        Goalkeepr:
+          type: string
+          example: Petr Cech
+        Notes:
+          type: string
+          example: Relegated
+      example:
+        Attendance: 52000
+        top_scorer: Eden Hazard
+        Goalkeepr: Petr Cech
+        MP: 38
+        D: 0
+        L: 0
+        xG: 25.7
+        xGA: 32.7
+        xGD: "-12"
+        W: 25
+        Rk: 1
+        GA: 50
+        Squad: Chelsea FC
+        xGD/90: "-1.3"
+        GD: "50"
+        Notes: Relegated
+        GF: 50
+
