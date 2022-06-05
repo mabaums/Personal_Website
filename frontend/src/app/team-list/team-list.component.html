@@ -7,18 +7,21 @@
 
   <ng-container matColumnDef="expandedDetail">
     <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
-      <div class="example-element-detail"
-           [@detailExpand]="element == expandedTeam ? 'expanded' : 'collapsed'">
-        <div> xG: {{element.xG}}, xGA: {{element.xGA}}</div>
+      <div class="example-element-detail" [@detailExpand]="element == expandedTeam ? 'expanded' : 'collapsed'">
+        <div> xG: {{element.xG}}, xGA: {{element.xGA}}, xGD: {{element.xGD}}</div>
+        <div><a mat-raised-button color="primary" routerLink="/team/{{element.Squad}}">More</a></div>
+        <div>
+          <ag-charts-angular [options]="options">
+          </ag-charts-angular>
+        </div>
       </div>
     </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let element; columns: displayedColumns;"
-      class="example-element-row"
-      [class.example-expanded-row]="expandedTeam === element"
-      (click)="expandedTeam = expandedTeam === element ? null : element">
+  <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="example-element-row"
+    [class.example-expanded-row]="expandedTeam === element"
+    (click)="expandedTeam = expandedTeam === element ? null : element">
   </tr>
   <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
 

@@ -1,5 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-
+import { Component, ChangeDetectorRef, OnDestroy, OnInit } from '@angular/core';
+import { MediaMatcher } from '@angular/cdk/layout';
+import { AgGridAngular } from 'ag-grid-angular';
 
 
 @Component({
@@ -7,16 +8,23 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, OnDestroy {
-  title = 'frontend';
+export class AppComponent implements OnDestroy {
+  mobileQuery: MediaQueryList;
 
-  constructor() {
+  fillerNav = Array.from({length: 50}, (_, i) => `Nav Item ${i + 1}`);
+
+
+  private _mobileQueryListener: () => void;
+
+  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this._mobileQueryListener);
   }
 
-  ngOnInit() {
+  ngOnDestroy(): void {
+    this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 
-  ngOnDestroy() {
-  }
 
 }

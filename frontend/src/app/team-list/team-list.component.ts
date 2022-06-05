@@ -28,9 +28,38 @@ export class TeamListComponent implements OnInit, AfterViewInit{
   @ViewChild(MatSort) sort: MatSort = new MatSort;
 
 
+  public options: any;
+
+  data = [
+      {
+          quarter: 'Q1',
+          spending: 450,
+      },
+      {
+          quarter: 'Q2',
+          spending: 560,
+      },
+      {
+          quarter: 'Q3',
+          spending: 600,
+      },
+      {
+          quarter: 'Q4',
+          spending: 700,
+      },
+  ];
+
   constructor(private clientApi: ClientService) { 
     this.teams = [];
     this.dataSource = new MatTableDataSource(this.teams);
+
+    this.options = {
+      data: this.data,
+      series: [{
+          xKey: 'quarter',
+          yKey: 'spending',
+      }],
+  };
 
   }
   ngAfterViewInit(): void {
@@ -43,6 +72,9 @@ export class TeamListComponent implements OnInit, AfterViewInit{
     )
 
   }
+
+
+
   displayedColumns: string[] = ['Rk', 'Squad', 'W', 'D', 'L', 'GF', 'GA', 'GD', 'MP'];
   ngOnInit(): void {}
   

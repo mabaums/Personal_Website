@@ -10,6 +10,13 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule} from '@angular/material/toolbar';
 import { MatSortModule } from '@angular/material/sort';
 import { TeamDetailComponent } from './team-detail/team-detail.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule} from '@angular/material/icon';
+import { MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
+import { AgGridModule } from 'ag-grid-angular';
+import { FormsModule } from '@angular/forms';
+import { AgChartsAngularModule } from 'ag-charts-angular';
 
 @NgModule({
   declarations: [
@@ -24,7 +31,14 @@ import { TeamDetailComponent } from './team-detail/team-detail.component';
     BrowserAnimationsModule,
     MatTableModule,
     MatToolbarModule,
-    MatSortModule
+    MatSortModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatListModule,
+    AgGridModule,
+    FormsModule,
+    AgChartsAngularModule
   ],
   providers: [],
   bootstrap: [AppComponent]
