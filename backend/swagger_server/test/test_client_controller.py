@@ -5,6 +5,7 @@ from __future__ import absolute_import
 from flask import json
 from six import BytesIO
 
+from swagger_server.models.game import Game  # noqa: E501
 from swagger_server.models.team import Team  # noqa: E501
 from swagger_server.test import BaseTestCase
 
@@ -18,8 +19,22 @@ class TestClientController(BaseTestCase):
         returns Teams
         """
         response = self.client.open(
-            '/mabaums/Personal_Website/1.0.0/teams',
+            '/mabaums/Personal_Website/1.1.0/teams',
             method='GET')
+        self.assert200(response,
+                       'Response body is : ' + response.data.decode('utf-8'))
+
+    def test_predict_game(self):
+        """Test case for predict_game
+
+        Predict the outcome of two teams playing
+        """
+        query_string = [('home_id', 56),
+                        ('away_id', 56)]
+        response = self.client.open(
+            '/mabaums/Personal_Website/1.1.0/predict',
+            method='GET',
+            query_string=query_string)
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 

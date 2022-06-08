@@ -138,6 +138,8 @@ class Team(Model):
         :param rk: The rk of this Team.
         :type rk: int
         """
+        if rk is None:
+            raise ValueError("Invalid value for `rk`, must not be `None`")  # noqa: E501
 
         self._rk = rk
 
@@ -159,6 +161,8 @@ class Team(Model):
         :param squad: The squad of this Team.
         :type squad: str
         """
+        if squad is None:
+            raise ValueError("Invalid value for `squad`, must not be `None`")  # noqa: E501
 
         self._squad = squad
 
@@ -201,6 +205,8 @@ class Team(Model):
         :param w: The w of this Team.
         :type w: int
         """
+        if w is None:
+            raise ValueError("Invalid value for `w`, must not be `None`")  # noqa: E501
 
         self._w = w
 
@@ -222,6 +228,8 @@ class Team(Model):
         :param d: The d of this Team.
         :type d: int
         """
+        if d is None:
+            raise ValueError("Invalid value for `d`, must not be `None`")  # noqa: E501
 
         self._d = d
 
@@ -243,6 +251,8 @@ class Team(Model):
         :param l: The l of this Team.
         :type l: int
         """
+        if l is None:
+            raise ValueError("Invalid value for `l`, must not be `None`")  # noqa: E501
 
         self._l = l
 
@@ -264,6 +274,8 @@ class Team(Model):
         :param gf: The gf of this Team.
         :type gf: int
         """
+        if gf is None:
+            raise ValueError("Invalid value for `gf`, must not be `None`")  # noqa: E501
 
         self._gf = gf
 
@@ -285,6 +297,8 @@ class Team(Model):
         :param ga: The ga of this Team.
         :type ga: int
         """
+        if ga is None:
+            raise ValueError("Invalid value for `ga`, must not be `None`")  # noqa: E501
 
         self._ga = ga
 
@@ -306,6 +320,8 @@ class Team(Model):
         :param gd: The gd of this Team.
         :type gd: str
         """
+        if gd is None:
+            raise ValueError("Invalid value for `gd`, must not be `None`")  # noqa: E501
 
         self._gd = gd
 
@@ -396,6 +412,8 @@ class Team(Model):
         :param x_gd90: The x_gd90 of this Team.
         :type x_gd90: str
         """
+        if x_gd90 is None:
+            raise ValueError("Invalid value for `x_gd90`, must not be `None`")  # noqa: E501
 
         self._x_gd90 = x_gd90
 
@@ -417,6 +435,8 @@ class Team(Model):
         :param attendance: The attendance of this Team.
         :type attendance: float
         """
+        if attendance is None:
+            raise ValueError("Invalid value for `attendance`, must not be `None`")  # noqa: E501
 
         self._attendance = attendance
 
@@ -438,8 +458,6 @@ class Team(Model):
         :param top_scorer: The top_scorer of this Team.
         :type top_scorer: str
         """
-        if top_scorer is None:
-            raise ValueError("Invalid value for `top_scorer`, must not be `None`")  # noqa: E501
 
         self._top_scorer = top_scorer
 
@@ -482,5 +500,7 @@ class Team(Model):
         :param notes: The notes of this Team.
         :type notes: str
         """
+        if notes is None:
+            raise ValueError("Invalid value for `notes`, must not be `None`")  # noqa: E501
 
         self._notes = notes

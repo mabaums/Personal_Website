@@ -7,9 +7,9 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.0
+  version: 1.1.0
 servers:
-- url: https://virtserver.swaggerhub.com/mabaums/Personal_Website/1.0.0
+- url: https://virtserver.swaggerhub.com/mabaums/Personal_Website/1.1.0
   description: SwaggerHub API Auto Mocking
 tags:
 - name: admins
@@ -17,6 +17,35 @@ tags:
 - name: developers
   description: Operations available to regular developers
 paths:
+  /predict:
+    get:
+      tags:
+      - client
+      summary: Predict the outcome of two teams playing
+      operationId: predict_game
+      parameters:
+      - name: homeID
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: awayID
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Game Predicted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+      x-openapi-router-controller: swagger_server.controllers.client_controller
   /teams:
     get:
       tags:
@@ -38,26 +67,47 @@ paths:
       x-openapi-router-controller: swagger_server.controllers.client_controller
 components:
   schemas:
+    Game:
+      required:
+      - goals_away
+      - goals_home
+      - name_away
+      - name_home
+      type: object
+      properties:
+        goals_home:
+          type: integer
+        goals_away:
+          type: integer
+        name_home:
+          type: string
+        name_away:
+          type: string
+      example:
+        name_away: name_away
+        name_home: name_home
+        goals_home: 0
+        goals_away: 6
     Team:
       required:
-      - attendance
-      - draws
-      - ga
-      - gd
-      - gf
-      - goalkeeper
-      - losses
-      - mp
-      - notes
-      - pts
-      - rk
-      - squad
-      - top_scorer
-      - wins
+      - Attendance
+      - D
+      - GA
+      - GD
+      - GF
+      - Goalkeeper
+      - L
+      - Mp
+      - Notes
+      - Pts
+      - Rk
+      - Squad
+      - Top_Scorer
+      - W
       - xG
       - xGA
       - xGD
-      - xGD90
+      - xGD/90
       type: object
       properties:
         Rk:
