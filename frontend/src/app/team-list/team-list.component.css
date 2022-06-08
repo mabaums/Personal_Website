@@ -20,7 +20,7 @@ table {
   
   .example-element-detail {
     overflow: hidden;
-    min-height: 300px;
+    /*min-height: 300px;*/
     display: flex;
   }
   

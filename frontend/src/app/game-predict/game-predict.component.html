@@ -1,0 +1,15 @@
+
+<div *ngIf="game">
+    <h1> {{game.name_home}} {{game.goals_home}} : {{game.goals_away}} {{game.name_away}}</h1>
+</div>
+<div *ngIf="!game"><p>game-predict works!</p>
+    <button mat-flat-button color="primary" (click)="predict(1,1)">Predict</button>
+    <mat-form-field>
+        <mat-label>Team 1</mat-label>
+        <input matInput placeholder="Placeholder">
+    </mat-form-field>
+    <div></div>
+    <mat-form-field>
+        <mat-label>Team 2</mat-label>
+        <input matInput placeholder="Placeholder">
+    </mat-form-field></div>

@@ -158,6 +158,9 @@ components:
         Goalkeepr:
           type: string
           example: Petr Cech
+        Pts:
+          type: integer
+          example: 100
         Notes:
           type: string
           example: Relegated
@@ -168,6 +171,7 @@ components:
         MP: 38
         D: 0
         L: 0
+        Pts: 100
         xG: 25.7
         xGA: 32.7
         xGD: "-12"

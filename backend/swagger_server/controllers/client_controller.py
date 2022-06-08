@@ -1,3 +1,5 @@
+import json
+
 import connexion
 import six
 
@@ -14,7 +16,12 @@ def get_teams():  # noqa: E501
 
     :rtype: List[Team]
     """
-    return 'do some magic!'
+    f = open('C:/Users/Mark/Documents/website/backend/teams.json', encoding='utf-8')
+    data = json.load(f)
+    teams = []
+    for team in data:
+        teams.append(Team.from_dict(team))
+    return teams
 
 
 def predict_game(home_id=None, away_id=None):  # noqa: E501
@@ -29,4 +36,5 @@ def predict_game(home_id=None, away_id=None):  # noqa: E501
 
     :rtype: Game
     """
-    return 'do some magic!'
+    game = Game(1, 100,"Manchester City", "Chelsea")
+    return game

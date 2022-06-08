@@ -17,12 +17,16 @@ import {MatListModule} from '@angular/material/list';
 import { AgGridModule } from 'ag-grid-angular';
 import { FormsModule } from '@angular/forms';
 import { AgChartsAngularModule } from 'ag-charts-angular';
+import { GamePredictComponent } from './game-predict/game-predict.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input'
 
 @NgModule({
   declarations: [
     AppComponent,
     TeamListComponent,
-    TeamDetailComponent
+    TeamDetailComponent,
+    GamePredictComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +42,9 @@ import { AgChartsAngularModule } from 'ag-charts-angular';
     MatListModule,
     AgGridModule,
     FormsModule,
-    AgChartsAngularModule
+    AgChartsAngularModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

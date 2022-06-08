@@ -14,7 +14,7 @@ class Team(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, rk: int=None, squad: str=None, mp: int=None, w: int=None, d: int=None, l: int=None, gf: int=None, ga: int=None, gd: str=None, x_ga: float=None, x_g: float=None, x_gd: str=None, x_gd90: str=None, attendance: float=None, top_scorer: str=None, goalkeepr: str=None, notes: str=None):  # noqa: E501
+    def __init__(self, rk: int=None, squad: str=None, mp: int=None, w: int=None, d: int=None, l: int=None, gf: int=None, ga: int=None, gd: str=None, x_ga: float=None, x_g: float=None, x_gd: str=None, x_gd90: str=None, attendance: float=None, top_scorer: str=None, goalkeepr: str=None, pts: int=None, notes: str=None):  # noqa: E501
         """Team - a model defined in Swagger
 
         :param rk: The rk of this Team.  # noqa: E501
@@ -49,6 +49,8 @@ class Team(Model):
         :type top_scorer: str
         :param goalkeepr: The goalkeepr of this Team.  # noqa: E501
         :type goalkeepr: str
+        :param pts: The pts of this Team.  # noqa: E501
+        :type pts: int
         :param notes: The notes of this Team.  # noqa: E501
         :type notes: str
         """
@@ -69,6 +71,7 @@ class Team(Model):
             'attendance': float,
             'top_scorer': str,
             'goalkeepr': str,
+            'pts': int,
             'notes': str
         }
 
@@ -89,6 +92,7 @@ class Team(Model):
             'attendance': 'Attendance',
             'top_scorer': 'top_scorer',
             'goalkeepr': 'Goalkeepr',
+            'pts': 'Pts',
             'notes': 'Notes'
         }
         self._rk = rk
@@ -107,6 +111,7 @@ class Team(Model):
         self._attendance = attendance
         self._top_scorer = top_scorer
         self._goalkeepr = goalkeepr
+        self._pts = pts
         self._notes = notes
 
     @classmethod
@@ -481,6 +486,29 @@ class Team(Model):
         """
 
         self._goalkeepr = goalkeepr
+
+    @property
+    def pts(self) -> int:
+        """Gets the pts of this Team.
+
+
+        :return: The pts of this Team.
+        :rtype: int
+        """
+        return self._pts
+
+    @pts.setter
+    def pts(self, pts: int):
+        """Sets the pts of this Team.
+
+
+        :param pts: The pts of this Team.
+        :type pts: int
+        """
+        if pts is None:
+            raise ValueError("Invalid value for `pts`, must not be `None`")  # noqa: E501
+
+        self._pts = pts
 
     @property
     def notes(self) -> str:

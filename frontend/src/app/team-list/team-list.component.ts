@@ -24,40 +24,58 @@ export class TeamListComponent implements OnInit, AfterViewInit{
   teams: Team[];
   dataSource: MatTableDataSource<Team>;
   expandedTeam: Team | null | undefined;
-
   @ViewChild(MatSort) sort: MatSort = new MatSort;
 
 
   public options: any;
 
-  data = [
-      {
-          quarter: 'Q1',
-          spending: 450,
-      },
-      {
-          quarter: 'Q2',
-          spending: 560,
-      },
-      {
-          quarter: 'Q3',
-          spending: 600,
-      },
-      {
-          quarter: 'Q4',
-          spending: 700,
-      },
-  ];
 
   constructor(private clientApi: ClientService) { 
     this.teams = [];
     this.dataSource = new MatTableDataSource(this.teams);
 
     this.options = {
-      data: this.data,
+      theme: 'ag-default-dark',
+      autoSize:true,
+      title: {
+        text: 'Season Performance'
+      },
+      subtitle: {
+        text: 'Points by match Day'
+      },
+      data: [
+        {
+          match_day: '1',
+          Points: 3,
+        },
+        {
+          match_day: '2',
+          Points: 6
+        },
+        {
+          match_day: '3',
+          Points: 9
+        },
+        {
+          match_day: '4',
+          Points: 9
+        },
+        {
+          match_day: '5',
+          Points: 9
+        },
+        {
+          match_day: '6',
+          Points: 9
+        },
+        {
+          match_day: '7',
+          Points: 9
+        }
+      ],
       series: [{
-          xKey: 'quarter',
-          yKey: 'spending',
+          xKey: 'match_day',
+          yKey: 'Points',
       }],
   };
 
@@ -75,7 +93,7 @@ export class TeamListComponent implements OnInit, AfterViewInit{
 
 
 
-  displayedColumns: string[] = ['Rk', 'Squad', 'W', 'D', 'L', 'GF', 'GA', 'GD', 'MP'];
+  displayedColumns: string[] = ['Rk', 'Squad', 'GD', 'MP', 'Pts'];
   ngOnInit(): void {}
   
 
