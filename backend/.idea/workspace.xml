@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e91f1a10-dd59-4178-8281-2a49b3b673c5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/app-routing.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/app.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/app.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/app.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/app.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/team-list/team-list.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/team-list/team-list.component.html" afterDir="false" />
-    </list>
+    <list default="true" id="e91f1a10-dd59-4178-8281-2a49b3b673c5" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
