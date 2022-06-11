@@ -57,6 +57,41 @@ export class ClientService {
 
 
     /**
+     * Get standings of premier league
+     * 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getStanding(observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public getStanding(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public getStanding(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public getStanding(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<any>('get',`${this.basePath}/standings`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * returns Teams
      * Returns all of the teams in the EPL and their rank. 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -95,24 +130,24 @@ export class ClientService {
     /**
      * Predict the outcome of two teams playing
      * 
-     * @param homeID 
-     * @param awayID 
+     * @param home_id 
+     * @param away_id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public predictGame(homeID?: number, awayID?: number, observe?: 'body', reportProgress?: boolean): Observable<Game>;
-    public predictGame(homeID?: number, awayID?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Game>>;
-    public predictGame(homeID?: number, awayID?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Game>>;
-    public predictGame(homeID?: number, awayID?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public predictGame(home_id?: number, away_id?: number, observe?: 'body', reportProgress?: boolean): Observable<Game>;
+    public predictGame(home_id?: number, away_id?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Game>>;
+    public predictGame(home_id?: number, away_id?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Game>>;
+    public predictGame(home_id?: number, away_id?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (homeID !== undefined && homeID !== null) {
-            queryParameters = queryParameters.set('homeID', <any>homeID);
+        if (home_id !== undefined && home_id !== null) {
+            queryParameters = queryParameters.set('homeID', <any>home_id);
         }
-        if (awayID !== undefined && awayID !== null) {
-            queryParameters = queryParameters.set('awayID', <any>awayID);
+        if (away_id !== undefined && away_id !== null) {
+            queryParameters = queryParameters.set('awayID', <any>away_id);
         }
 
         let headers = this.defaultHeaders;
@@ -131,6 +166,49 @@ export class ClientService {
         ];
 
         return this.httpClient.request<Game>('get',`${this.basePath}/predict`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * predict every game of a certain round
+     * 
+     * @param round_number 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public predictRound(round_number?: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public predictRound(round_number?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public predictRound(round_number?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public predictRound(round_number?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (round_number !== undefined && round_number !== null) {
+            queryParameters = queryParameters.set('roundNumber', <any>round_number);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<any>('get',`${this.basePath}/predictRound`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,

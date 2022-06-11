@@ -13,6 +13,17 @@ from swagger_server.test import BaseTestCase
 class TestClientController(BaseTestCase):
     """ClientController integration test stubs"""
 
+    def test_get_standing(self):
+        """Test case for get_standing
+
+        Get standings of premier league
+        """
+        response = self.client.open(
+            '/mabaums/Personal_Website/1.1.0/standings',
+            method='GET')
+        self.assert200(response,
+                       'Response body is : ' + response.data.decode('utf-8'))
+
     def test_get_teams(self):
         """Test case for get_teams
 
@@ -33,6 +44,19 @@ class TestClientController(BaseTestCase):
                         ('away_id', 56)]
         response = self.client.open(
             '/mabaums/Personal_Website/1.1.0/predict',
+            method='GET',
+            query_string=query_string)
+        self.assert200(response,
+                       'Response body is : ' + response.data.decode('utf-8'))
+
+    def test_predict_round(self):
+        """Test case for predict_round
+
+        predict every game of a certain round
+        """
+        query_string = [('round_number', 56)]
+        response = self.client.open(
+            '/mabaums/Personal_Website/1.1.0/predictRound',
             method='GET',
             query_string=query_string)
         self.assert200(response,

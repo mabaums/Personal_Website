@@ -1,0 +1,3 @@
+<div *ngIf="standings">
+    <ag-grid-angular class="ag-theme-alpine-dark" [columnDefs]="columnDefs" [rowData]="standings" (gridReady)="onGridReady($event)"></ag-grid-angular>
+</div>

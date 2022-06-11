@@ -1,6 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { MatFormField } from '@angular/material/form-field';
 import { ClientService, Game } from 'api-swagger-library';
+import { MatTableDataSource } from '@angular/material/table';
+
+interface GameWeek {
+  value: number;
+  viewValue: string;
+}
+
+interface Team {
+  value: number;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-game-predict',
@@ -8,21 +19,48 @@ import { ClientService, Game } from 'api-swagger-library';
   styleUrls: ['./game-predict.component.css'],
   providers: [ClientService]
 })
+
+
 export class GamePredictComponent implements OnInit {
 
-  constructor(private clientApi: ClientService) { }
+  predictedRound: any | undefined;
+  isLoading: boolean = false;
+  selectedWeek = 10;
+  gameWeeks: GameWeek[] = []
+  selectedHomeTeam = 1;
+  selectedAwayTeam = 2;
+  teams: Team[] = [
+    {value: 1, viewValue: 'Chelsea FC'},
+    {value: 2, viewValue: 'Manchester City'}
+  ]
+  constructor(private clientApi: ClientService) { 
+    for (let i = 5; i < 39; i++) {
+      this.gameWeeks.push({value: i, viewValue : "Game Week ".concat(i.toString())})
+    }
+  }
   game: Game | undefined;
   ngOnInit(): void {
+
   }
 
+  predictRound(roundID: number) {
+    this.isLoading = true;
+    this.predictedRound = undefined;
+    this.clientApi.predictRound(roundID).subscribe( body => {
+      this.predictedRound = body;
+      this.isLoading = false;
+    })
+  }
   predict(homeId: number, awayId: number) {
-    this.clientApi.predictGame(1, 1).subscribe(
+    this.isLoading = true;
+    this.clientApi.predictGame(homeId, awayId).subscribe(
       body => {
         this.game = body as Game;
-        console.log(this.game);
-        console.log(this.game.goals_home)
+        this.isLoading = false;
       }
     )
   }
+
+  displayedColumns: string[] = ['Home Team', 'Away Team', 'Predicted GD', 'Predicted Result', 'Actual GD', 'Full Time Result'];
 
 }

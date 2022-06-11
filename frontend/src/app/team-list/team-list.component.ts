@@ -26,7 +26,6 @@ export class TeamListComponent implements OnInit, AfterViewInit{
   expandedTeam: Team | null | undefined;
   @ViewChild(MatSort) sort: MatSort = new MatSort;
 
-
   public options: any;
 
 
@@ -86,6 +85,12 @@ export class TeamListComponent implements OnInit, AfterViewInit{
         this.teams = body;
         this.dataSource = new MatTableDataSource(this.teams);
         this.dataSource.sort = this.sort;
+      }
+    )
+
+    this.clientApi.getStanding().subscribe(
+      body => {
+        console.log(body);
       }
     )
 

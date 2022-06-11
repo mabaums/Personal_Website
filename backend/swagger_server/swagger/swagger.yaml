@@ -17,6 +17,34 @@ tags:
 - name: developers
   description: Operations available to regular developers
 paths:
+  /standings:
+    get:
+      tags:
+      - client
+      summary: Get standings of premier league
+      operationId: get_standing
+      responses:
+        "200":
+          description: Standings
+      x-openapi-router-controller: swagger_server.controllers.client_controller
+  /predictRound:
+    get:
+      tags:
+      - client
+      summary: predict every game of a certain round
+      operationId: predict_round
+      parameters:
+      - name: roundNumber
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Predicted round
+      x-openapi-router-controller: swagger_server.controllers.client_controller
   /predict:
     get:
       tags:
@@ -160,7 +188,6 @@ components:
           example: Petr Cech
         Pts:
           type: integer
-          example: 100
         Notes:
           type: string
           example: Relegated
@@ -171,7 +198,7 @@ components:
         MP: 38
         D: 0
         L: 0
-        Pts: 100
+        Pts: 0
         xG: 25.7
         xGA: 32.7
         xGD: "-12"

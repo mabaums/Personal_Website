@@ -1,0 +1,33 @@
+table {
+    width: 100%;
+  }
+
+  .make-red {
+      background-color: #f4cccc;
+
+  }
+
+  .make-green {
+      background-color: #d9ead3;
+      color: black;
+  }
+
+.center {
+    margin: auto;
+    width: 75%;
+    border: 3px solid white;
+    padding: 10px;
+}
+
+.right {
+    float: right
+}
+
+
+.mat-form-field {
+    padding: 10px;
+}
+
+.black-text {
+    color: black;
+}

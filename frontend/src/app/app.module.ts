@@ -19,14 +19,21 @@ import { FormsModule } from '@angular/forms';
 import { AgChartsAngularModule } from 'ag-charts-angular';
 import { GamePredictComponent } from './game-predict/game-predict.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input'
-
+import { MatInputModule } from '@angular/material/input';
+import { StandingsComponent } from './standings/standings.component';
+import { TeamCellComponent } from './team-cell/team-cell.component';
+import { MatSelectModule } from '@angular/material/select';
+import { TeamCardComponent } from './team-card/team-card.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 @NgModule({
   declarations: [
     AppComponent,
     TeamListComponent,
     TeamDetailComponent,
-    GamePredictComponent
+    GamePredictComponent,
+    StandingsComponent,
+    TeamCellComponent,
+    TeamCardComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +51,9 @@ import { MatInputModule } from '@angular/material/input'
     FormsModule,
     AgChartsAngularModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatSelectModule,
+    MatProgressBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

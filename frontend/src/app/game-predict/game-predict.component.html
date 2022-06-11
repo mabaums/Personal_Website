@@ -1,15 +1,60 @@
+<div class="center">
+    <h1>Predict either a round or a specific game</h1>
+    <div>
+        <span>
+            <mat-form-field>
+                <mat-label>
+                    Game Week
+                </mat-label>
+                <mat-select [(value)]="selectedWeek">
+                    <mat-option *ngFor="let gameWeek of gameWeeks" [value]="gameWeek.value">
+                        {{gameWeek.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </span>
+        <button mat-flat-button color="primary" (click)="predictRound(selectedWeek)"
+            [disabled]="isLoading">Predict Round</button>
+        <div class="right">        <p>Choose which algorightim and other stats here</p></div>
 
-<div *ngIf="game">
-    <h1> {{game.name_home}} {{game.goals_home}} : {{game.goals_away}} {{game.name_away}}</h1>
+        <div>
+            <mat-form-field>
+                <mat-label>
+                    Home Team
+                </mat-label>
+                <mat-select [(value)]="selectedHomeTeam">
+                    <mat-option *ngFor="let team of teams" [value]="team.value">
+                        {{team.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>
+                    Away Team
+                </mat-label>
+                <mat-select [(value)]="selectedAwayTeam">
+                    <mat-option *ngFor="let team of teams" [value]="team.value">
+                        {{team.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>  
+            <button mat-flat-button color="primary" [disabled]="isLoading" (click)="predict(selectedHomeTeam,selectedAwayTeam)">Predict Game</button>
+        </div>
+    </div>
+
+    <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
 </div>
-<div *ngIf="!game"><p>game-predict works!</p>
-    <button mat-flat-button color="primary" (click)="predict(1,1)">Predict</button>
-    <mat-form-field>
-        <mat-label>Team 1</mat-label>
-        <input matInput placeholder="Placeholder">
-    </mat-form-field>
-    <div></div>
-    <mat-form-field>
-        <mat-label>Team 2</mat-label>
-        <input matInput placeholder="Placeholder">
-    </mat-form-field></div>
+
+<div *ngIf="predictedRound" class="center">
+    <table mat-table [dataSource]="predictedRound" class="mat-elevation-z8">
+        <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns">
+            <th mat-header-cell *matHeaderCellDef> {{column}}
+            </th>
+            <td mat-cell *matCellDef="let element" class="black-text"> {{element[column]}} </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+            [ngClass]="{'make-red': row['Predicted Result'] != row['Full Time Result'], 'make-green' : row['Predicted Result'] == row['Full Time Result']}">
+        </tr>
+    </table>
+</div>

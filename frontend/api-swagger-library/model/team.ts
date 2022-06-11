@@ -20,12 +20,12 @@ export interface Team {
     GF: number;
     GA: number;
     GD: string;
-    xGA: number;
-    xG: number;
-    xGD: string;
-    xGD90: string;
+    x_ga: number;
+    x_g: number;
+    x_gd: string;
+    x_gd90: string;
     attendance: number;
-    topScorer?: string;
+    top_scorer?: string;
     goalkeepr?: string;
     pts: number;
     notes: string;

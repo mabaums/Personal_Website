@@ -5,19 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e91f1a10-dd59-4178-8281-2a49b3b673c5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/csv-plugin.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/prem.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ml_test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/swagger_server/controllers/controllers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/swagger_server/__main__.py" beforeDir="false" afterPath="$PROJECT_DIR$/swagger_server/__main__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/swagger_server/controllers/client_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/swagger_server/controllers/client_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/swagger_server/models/team.py" beforeDir="false" afterPath="$PROJECT_DIR$/swagger_server/models/team.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/swagger_server/swagger/swagger.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/swagger_server/swagger/swagger.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swagger_server/test/test_client_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/swagger_server/test/test_client_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/api-swagger-library/api/client.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/api-swagger-library/api/client.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/api-swagger-library/model/models.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/api-swagger-library/model/models.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/api-swagger-library/model/team.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/api-swagger-library/model/team.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/app-routing.module.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/app.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/team-list/team-list.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/team-list/team-list.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/game-predict/game-predict.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/game-predict/game-predict.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/game-predict/game-predict.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/game-predict/game-predict.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/game-predict/game-predict.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/game-predict/game-predict.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/team-list/team-list.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/team-list/team-list.component.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/app/team-list/team-list.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/team-list/team-list.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,11 +46,19 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Mark/Documents/website/backend&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.fileTypes&quot;
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Mark\Documents\website\backend" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Mark\Documents\website\backend\data" />
+      <recent name="C:\Users\Mark\Documents\website\backend\swagger_server\controllers" />
       <recent name="C:\Users\Mark\Documents\website\backend" />
     </key>
   </component>
