@@ -25,6 +25,7 @@ import { TeamCellComponent } from './team-cell/team-cell.component';
 import { MatSelectModule } from '@angular/material/select';
 import { TeamCardComponent } from './team-card/team-card.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { HomePageComponent } from './home-page/home-page.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     GamePredictComponent,
     StandingsComponent,
     TeamCellComponent,
-    TeamCardComponent
+    TeamCardComponent,
+    HomePageComponent
   ],
   imports: [
     BrowserModule,

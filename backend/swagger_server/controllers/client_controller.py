@@ -20,6 +20,8 @@ import matplotlib.pyplot as plt
 from matplotlib import rc
 from matplotlib.ticker import FuncFormatter
 
+import controllers
+
 
 def get_standing():  # noqa: E501
     """Get standings of premier league
@@ -29,9 +31,7 @@ def get_standing():  # noqa: E501
 
     :rtype: None
     """
-    f = open('C:/Users/Mark/Documents/website/backend/data/39-2021.json', encoding='utf-8')
-    json_standings = json.load(f)
-    return json_standings
+    return controllers.get_standing()
 
 
 def get_teams():  # noqa: E501
@@ -42,12 +42,7 @@ def get_teams():  # noqa: E501
 
     :rtype: List[Team]
     """
-    f = open('teams.json', encoding='utf-8')
-    data = json.load(f)
-    teams = []
-    for team in data:
-        teams.append(Team.from_dict(team))
-    return teams
+    return controllers.get_teams()
 
 
 def predict_game(home_id=None, away_id=None):  # noqa: E501
@@ -62,8 +57,7 @@ def predict_game(home_id=None, away_id=None):  # noqa: E501
 
     :rtype: Game
     """
-    game = Game(1, 100, "Manchester City", "Chelsea ")
-    return game
+    controllers.predict_game()
 
 
 def predict_round(round_number=None):  # noqa: E501
@@ -158,11 +152,14 @@ def predict_round(round_number=None):  # noqa: E501
     retransformed_y_data = retransform_y_data(current_data['y_test'], y_pred)
 
     predicted_games = [
-        {"Fixture": i, "Home Team": data['HomeTeam'][(round_number -1) * 10 + i], "Away Team": data['AwayTeam'][(round_number -1) * 10 + i],
+        {"Fixture": i, "Home Team": data['HomeTeam'][(round_number - 1) * 10 + i],
+         "Away Team": data['AwayTeam'][(round_number - 1) * 10 + i],
          "Predicted GD": str(retransformed_y_data['y_pred'][i][0]),
-         "Predicted Result": str("H" if retransformed_y_data['y_pred'][i][0] > .5 else "A" if retransformed_y_data['y_pred'][i][0] < -.5 else "D"),
+         "Predicted Result": str(
+             "H" if retransformed_y_data['y_pred'][i][0] > .5 else "A" if retransformed_y_data['y_pred'][i][
+                                                                              0] < -.5 else "D"),
          "Actual GD": str(retransformed_y_data['y_actual'][i][0]),
-         "Full Time Result": data['FTR'][(round_number -1) * 10 + i]
+         "Full Time Result": data['FTR'][(round_number - 1) * 10 + i]
          }
         for i in range(len(retransformed_y_data['y_pred']))]
     return predicted_games
