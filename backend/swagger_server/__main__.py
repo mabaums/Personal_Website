@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
 import connexion
-from flask_cors import CORS
-from swagger_server import encoder
 
+from swagger_server import encoder
+from flask_cors import CORS
 
 def main():
     app = connexion.App(__name__, specification_dir='./swagger/')

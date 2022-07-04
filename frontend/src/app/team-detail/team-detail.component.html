@@ -1,6 +1,15 @@
+<!---
 <ag-grid-angular 
     style="width: 500px; height: 200px;" 
     class="ag-theme-alpine"
     [rowData]="rowData" 
     [columnDefs]="columnDefs">
 </ag-grid-angular>
+-->
+<div class="center">
+    <h1>{{team.team.name}} <img style="max-width: 40px;" src="{{team.team.logo}}"></h1>
+    <h2>{{team.league.name}} </h2>
+    <h3>{{team.form}}</h3>
+</div>
+
+{{team | json}}

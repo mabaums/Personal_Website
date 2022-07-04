@@ -17,6 +17,24 @@ tags:
 - name: developers
   description: Operations available to regular developers
 paths:
+  /team:
+    get:
+      tags:
+      - client
+      summary: Get team
+      operationId: get_team
+      parameters:
+      - name: teamID
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Ok
+      x-openapi-router-controller: swagger_server.controllers.client_controller
   /standings:
     get:
       tags:

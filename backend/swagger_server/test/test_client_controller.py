@@ -24,6 +24,19 @@ class TestClientController(BaseTestCase):
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
+    def test_get_team(self):
+        """Test case for get_team
+
+        Get team
+        """
+        query_string = [('team_id', 56)]
+        response = self.client.open(
+            '/mabaums/Personal_Website/1.1.0/team',
+            method='GET',
+            query_string=query_string)
+        self.assert200(response,
+                       'Response body is : ' + response.data.decode('utf-8'))
+
     def test_get_teams(self):
         """Test case for get_teams
 
