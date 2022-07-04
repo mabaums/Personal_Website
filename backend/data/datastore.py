@@ -26,7 +26,7 @@ class DataStore:
         return teams
 
     def get_standings(self):
-        f = open('C:/Users/Mark/Documents/website/backend/data/39-2021.json', encoding='utf-8')
+        f = open('data/39-2021.json', encoding='utf-8')
         json_standings = json.load(f)
         return json_standings
 
@@ -34,7 +34,7 @@ class DataStore:
         return self.fixtures[fixture_id]
 
     def get_team(self, team_id=0):
-        f = open('C:/Users/Mark/Documents/website/backend/data/50-39-2021.json', encoding='utf-8')
+        f = open('data/50-39-2021.json', encoding='utf-8')
         team_info = json.load(f)
         return team_info
 
@@ -43,7 +43,7 @@ class DataStore:
 
         @rtype: object
         """
-        f = open('C:/Users/Mark/Documents/website/backend/data/39-2021.json', encoding='utf-8')
+        f = open('Cdata/39-2021.json', encoding='utf-8')
         self.standings = json.load(f)
         f.close()
 
