@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  API_BASE_PATH: "https://mark-website-ja2zhps3ma-uc.a.run.app/home/mabaums/Personal_Website/1.1.0"
 };

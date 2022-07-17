@@ -26,6 +26,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { TeamCardComponent } from './team-card/team-card.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { HomePageComponent } from './home-page/home-page.component';
+import { environment } from 'src/environments/environment';
+import { BASE_PATH } from 'api-swagger-library';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,7 +60,7 @@ import { HomePageComponent } from './home-page/home-page.component';
     MatSelectModule,
     MatProgressBarModule
   ],
-  providers: [],
+  providers: [{ provide: BASE_PATH, useValue: environment.API_BASE_PATH}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
