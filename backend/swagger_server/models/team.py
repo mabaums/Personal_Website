@@ -14,105 +14,50 @@ class Team(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, rk: int=None, squad: str=None, mp: int=None, w: int=None, d: int=None, l: int=None, gf: int=None, ga: int=None, gd: str=None, x_ga: float=None, x_g: float=None, x_gd: str=None, x_gd90: str=None, attendance: float=None, top_scorer: str=None, goalkeepr: str=None, pts: int=None, notes: str=None):  # noqa: E501
+    def __init__(self, rank: int=None, team_name: str=None, team_logo: str=None, points: int=None, goals_diff: str=None, form: str=None, description: str=None):  # noqa: E501
         """Team - a model defined in Swagger
 
-        :param rk: The rk of this Team.  # noqa: E501
-        :type rk: int
-        :param squad: The squad of this Team.  # noqa: E501
-        :type squad: str
-        :param mp: The mp of this Team.  # noqa: E501
-        :type mp: int
-        :param w: The w of this Team.  # noqa: E501
-        :type w: int
-        :param d: The d of this Team.  # noqa: E501
-        :type d: int
-        :param l: The l of this Team.  # noqa: E501
-        :type l: int
-        :param gf: The gf of this Team.  # noqa: E501
-        :type gf: int
-        :param ga: The ga of this Team.  # noqa: E501
-        :type ga: int
-        :param gd: The gd of this Team.  # noqa: E501
-        :type gd: str
-        :param x_ga: The x_ga of this Team.  # noqa: E501
-        :type x_ga: float
-        :param x_g: The x_g of this Team.  # noqa: E501
-        :type x_g: float
-        :param x_gd: The x_gd of this Team.  # noqa: E501
-        :type x_gd: str
-        :param x_gd90: The x_gd90 of this Team.  # noqa: E501
-        :type x_gd90: str
-        :param attendance: The attendance of this Team.  # noqa: E501
-        :type attendance: float
-        :param top_scorer: The top_scorer of this Team.  # noqa: E501
-        :type top_scorer: str
-        :param goalkeepr: The goalkeepr of this Team.  # noqa: E501
-        :type goalkeepr: str
-        :param pts: The pts of this Team.  # noqa: E501
-        :type pts: int
-        :param notes: The notes of this Team.  # noqa: E501
-        :type notes: str
+        :param rank: The rank of this Team.  # noqa: E501
+        :type rank: int
+        :param team_name: The team_name of this Team.  # noqa: E501
+        :type team_name: str
+        :param team_logo: The team_logo of this Team.  # noqa: E501
+        :type team_logo: str
+        :param points: The points of this Team.  # noqa: E501
+        :type points: int
+        :param goals_diff: The goals_diff of this Team.  # noqa: E501
+        :type goals_diff: str
+        :param form: The form of this Team.  # noqa: E501
+        :type form: str
+        :param description: The description of this Team.  # noqa: E501
+        :type description: str
         """
         self.swagger_types = {
-            'rk': int,
-            'squad': str,
-            'mp': int,
-            'w': int,
-            'd': int,
-            'l': int,
-            'gf': int,
-            'ga': int,
-            'gd': str,
-            'x_ga': float,
-            'x_g': float,
-            'x_gd': str,
-            'x_gd90': str,
-            'attendance': float,
-            'top_scorer': str,
-            'goalkeepr': str,
-            'pts': int,
-            'notes': str
+            'rank': int,
+            'team_name': str,
+            'team_logo': str,
+            'points': int,
+            'goals_diff': str,
+            'form': str,
+            'description': str
         }
 
         self.attribute_map = {
-            'rk': 'Rk',
-            'squad': 'Squad',
-            'mp': 'MP',
-            'w': 'W',
-            'd': 'D',
-            'l': 'L',
-            'gf': 'GF',
-            'ga': 'GA',
-            'gd': 'GD',
-            'x_ga': 'xGA',
-            'x_g': 'xG',
-            'x_gd': 'xGD',
-            'x_gd90': 'xGD/90',
-            'attendance': 'Attendance',
-            'top_scorer': 'top_scorer',
-            'goalkeepr': 'Goalkeepr',
-            'pts': 'Pts',
-            'notes': 'Notes'
+            'rank': 'rank',
+            'team_name': 'team_name',
+            'team_logo': 'team_logo',
+            'points': 'points',
+            'goals_diff': 'goalsDiff',
+            'form': 'form',
+            'description': 'description'
         }
-        self._rk = rk
-        self._squad = squad
-        self._mp = mp
-        self._w = w
-        self._d = d
-        self._l = l
-        self._gf = gf
-        self._ga = ga
-        self._gd = gd
-        self._x_ga = x_ga
-        self._x_g = x_g
-        self._x_gd = x_gd
-        self._x_gd90 = x_gd90
-        self._attendance = attendance
-        self._top_scorer = top_scorer
-        self._goalkeepr = goalkeepr
-        self._pts = pts
-        self._notes = notes
+        self._rank = rank
+        self._team_name = team_name
+        self._team_logo = team_logo
+        self._points = points
+        self._goals_diff = goals_diff
+        self._form = form
+        self._description = description
 
     @classmethod
     def from_dict(cls, dikt) -> 'Team':
@@ -120,415 +65,154 @@ class Team(Model):
 
         :param dikt: A dict.
         :type: dict
-        :return: The Team of this Team.  # noqa: E501
+        :return: The team of this Team.  # noqa: E501
         :rtype: Team
         """
         return util.deserialize_model(dikt, cls)
 
     @property
-    def rk(self) -> int:
-        """Gets the rk of this Team.
+    def rank(self) -> int:
+        """Gets the rank of this Team.
 
 
-        :return: The rk of this Team.
+        :return: The rank of this Team.
         :rtype: int
         """
-        return self._rk
+        return self._rank
 
-    @rk.setter
-    def rk(self, rk: int):
-        """Sets the rk of this Team.
+    @rank.setter
+    def rank(self, rank: int):
+        """Sets the rank of this Team.
 
 
-        :param rk: The rk of this Team.
-        :type rk: int
+        :param rank: The rank of this Team.
+        :type rank: int
         """
-        if rk is None:
-            raise ValueError("Invalid value for `rk`, must not be `None`")  # noqa: E501
 
-        self._rk = rk
+        self._rank = rank
 
     @property
-    def squad(self) -> str:
-        """Gets the squad of this Team.
+    def team_name(self) -> str:
+        """Gets the team_name of this Team.
 
 
-        :return: The squad of this Team.
+        :return: The team_name of this Team.
         :rtype: str
         """
-        return self._squad
+        return self._team_name
 
-    @squad.setter
-    def squad(self, squad: str):
-        """Sets the squad of this Team.
+    @team_name.setter
+    def team_name(self, team_name: str):
+        """Sets the team_name of this Team.
 
 
-        :param squad: The squad of this Team.
-        :type squad: str
+        :param team_name: The team_name of this Team.
+        :type team_name: str
         """
-        if squad is None:
-            raise ValueError("Invalid value for `squad`, must not be `None`")  # noqa: E501
 
-        self._squad = squad
+        self._team_name = team_name
 
     @property
-    def mp(self) -> int:
-        """Gets the mp of this Team.
+    def team_logo(self) -> str:
+        """Gets the team_logo of this Team.
 
 
-        :return: The mp of this Team.
-        :rtype: int
-        """
-        return self._mp
-
-    @mp.setter
-    def mp(self, mp: int):
-        """Sets the mp of this Team.
-
-
-        :param mp: The mp of this Team.
-        :type mp: int
-        """
-
-        self._mp = mp
-
-    @property
-    def w(self) -> int:
-        """Gets the w of this Team.
-
-
-        :return: The w of this Team.
-        :rtype: int
-        """
-        return self._w
-
-    @w.setter
-    def w(self, w: int):
-        """Sets the w of this Team.
-
-
-        :param w: The w of this Team.
-        :type w: int
-        """
-        if w is None:
-            raise ValueError("Invalid value for `w`, must not be `None`")  # noqa: E501
-
-        self._w = w
-
-    @property
-    def d(self) -> int:
-        """Gets the d of this Team.
-
-
-        :return: The d of this Team.
-        :rtype: int
-        """
-        return self._d
-
-    @d.setter
-    def d(self, d: int):
-        """Sets the d of this Team.
-
-
-        :param d: The d of this Team.
-        :type d: int
-        """
-        if d is None:
-            raise ValueError("Invalid value for `d`, must not be `None`")  # noqa: E501
-
-        self._d = d
-
-    @property
-    def l(self) -> int:
-        """Gets the l of this Team.
-
-
-        :return: The l of this Team.
-        :rtype: int
-        """
-        return self._l
-
-    @l.setter
-    def l(self, l: int):
-        """Sets the l of this Team.
-
-
-        :param l: The l of this Team.
-        :type l: int
-        """
-        if l is None:
-            raise ValueError("Invalid value for `l`, must not be `None`")  # noqa: E501
-
-        self._l = l
-
-    @property
-    def gf(self) -> int:
-        """Gets the gf of this Team.
-
-
-        :return: The gf of this Team.
-        :rtype: int
-        """
-        return self._gf
-
-    @gf.setter
-    def gf(self, gf: int):
-        """Sets the gf of this Team.
-
-
-        :param gf: The gf of this Team.
-        :type gf: int
-        """
-        if gf is None:
-            raise ValueError("Invalid value for `gf`, must not be `None`")  # noqa: E501
-
-        self._gf = gf
-
-    @property
-    def ga(self) -> int:
-        """Gets the ga of this Team.
-
-
-        :return: The ga of this Team.
-        :rtype: int
-        """
-        return self._ga
-
-    @ga.setter
-    def ga(self, ga: int):
-        """Sets the ga of this Team.
-
-
-        :param ga: The ga of this Team.
-        :type ga: int
-        """
-        if ga is None:
-            raise ValueError("Invalid value for `ga`, must not be `None`")  # noqa: E501
-
-        self._ga = ga
-
-    @property
-    def gd(self) -> str:
-        """Gets the gd of this Team.
-
-
-        :return: The gd of this Team.
+        :return: The team_logo of this Team.
         :rtype: str
         """
-        return self._gd
+        return self._team_logo
 
-    @gd.setter
-    def gd(self, gd: str):
-        """Sets the gd of this Team.
+    @team_logo.setter
+    def team_logo(self, team_logo: str):
+        """Sets the team_logo of this Team.
 
 
-        :param gd: The gd of this Team.
-        :type gd: str
+        :param team_logo: The team_logo of this Team.
+        :type team_logo: str
         """
-        if gd is None:
-            raise ValueError("Invalid value for `gd`, must not be `None`")  # noqa: E501
 
-        self._gd = gd
+        self._team_logo = team_logo
 
     @property
-    def x_ga(self) -> float:
-        """Gets the x_ga of this Team.
+    def points(self) -> int:
+        """Gets the points of this Team.
 
 
-        :return: The x_ga of this Team.
-        :rtype: float
-        """
-        return self._x_ga
-
-    @x_ga.setter
-    def x_ga(self, x_ga: float):
-        """Sets the x_ga of this Team.
-
-
-        :param x_ga: The x_ga of this Team.
-        :type x_ga: float
-        """
-        if x_ga is None:
-            raise ValueError("Invalid value for `x_ga`, must not be `None`")  # noqa: E501
-
-        self._x_ga = x_ga
-
-    @property
-    def x_g(self) -> float:
-        """Gets the x_g of this Team.
-
-
-        :return: The x_g of this Team.
-        :rtype: float
-        """
-        return self._x_g
-
-    @x_g.setter
-    def x_g(self, x_g: float):
-        """Sets the x_g of this Team.
-
-
-        :param x_g: The x_g of this Team.
-        :type x_g: float
-        """
-        if x_g is None:
-            raise ValueError("Invalid value for `x_g`, must not be `None`")  # noqa: E501
-
-        self._x_g = x_g
-
-    @property
-    def x_gd(self) -> str:
-        """Gets the x_gd of this Team.
-
-
-        :return: The x_gd of this Team.
-        :rtype: str
-        """
-        return self._x_gd
-
-    @x_gd.setter
-    def x_gd(self, x_gd: str):
-        """Sets the x_gd of this Team.
-
-
-        :param x_gd: The x_gd of this Team.
-        :type x_gd: str
-        """
-        if x_gd is None:
-            raise ValueError("Invalid value for `x_gd`, must not be `None`")  # noqa: E501
-
-        self._x_gd = x_gd
-
-    @property
-    def x_gd90(self) -> str:
-        """Gets the x_gd90 of this Team.
-
-
-        :return: The x_gd90 of this Team.
-        :rtype: str
-        """
-        return self._x_gd90
-
-    @x_gd90.setter
-    def x_gd90(self, x_gd90: str):
-        """Sets the x_gd90 of this Team.
-
-
-        :param x_gd90: The x_gd90 of this Team.
-        :type x_gd90: str
-        """
-        if x_gd90 is None:
-            raise ValueError("Invalid value for `x_gd90`, must not be `None`")  # noqa: E501
-
-        self._x_gd90 = x_gd90
-
-    @property
-    def attendance(self) -> float:
-        """Gets the attendance of this Team.
-
-
-        :return: The attendance of this Team.
-        :rtype: float
-        """
-        return self._attendance
-
-    @attendance.setter
-    def attendance(self, attendance: float):
-        """Sets the attendance of this Team.
-
-
-        :param attendance: The attendance of this Team.
-        :type attendance: float
-        """
-        if attendance is None:
-            raise ValueError("Invalid value for `attendance`, must not be `None`")  # noqa: E501
-
-        self._attendance = attendance
-
-    @property
-    def top_scorer(self) -> str:
-        """Gets the top_scorer of this Team.
-
-
-        :return: The top_scorer of this Team.
-        :rtype: str
-        """
-        return self._top_scorer
-
-    @top_scorer.setter
-    def top_scorer(self, top_scorer: str):
-        """Sets the top_scorer of this Team.
-
-
-        :param top_scorer: The top_scorer of this Team.
-        :type top_scorer: str
-        """
-
-        self._top_scorer = top_scorer
-
-    @property
-    def goalkeepr(self) -> str:
-        """Gets the goalkeepr of this Team.
-
-
-        :return: The goalkeepr of this Team.
-        :rtype: str
-        """
-        return self._goalkeepr
-
-    @goalkeepr.setter
-    def goalkeepr(self, goalkeepr: str):
-        """Sets the goalkeepr of this Team.
-
-
-        :param goalkeepr: The goalkeepr of this Team.
-        :type goalkeepr: str
-        """
-
-        self._goalkeepr = goalkeepr
-
-    @property
-    def pts(self) -> int:
-        """Gets the pts of this Team.
-
-
-        :return: The pts of this Team.
+        :return: The points of this Team.
         :rtype: int
         """
-        return self._pts
+        return self._points
 
-    @pts.setter
-    def pts(self, pts: int):
-        """Sets the pts of this Team.
+    @points.setter
+    def points(self, points: int):
+        """Sets the points of this Team.
 
 
-        :param pts: The pts of this Team.
-        :type pts: int
+        :param points: The points of this Team.
+        :type points: int
         """
-        if pts is None:
-            raise ValueError("Invalid value for `pts`, must not be `None`")  # noqa: E501
 
-        self._pts = pts
+        self._points = points
 
     @property
-    def notes(self) -> str:
-        """Gets the notes of this Team.
+    def goals_diff(self) -> str:
+        """Gets the goals_diff of this Team.
 
 
-        :return: The notes of this Team.
+        :return: The goals_diff of this Team.
         :rtype: str
         """
-        return self._notes
+        return self._goals_diff
 
-    @notes.setter
-    def notes(self, notes: str):
-        """Sets the notes of this Team.
+    @goals_diff.setter
+    def goals_diff(self, goals_diff: str):
+        """Sets the goals_diff of this Team.
 
 
-        :param notes: The notes of this Team.
-        :type notes: str
+        :param goals_diff: The goals_diff of this Team.
+        :type goals_diff: str
         """
-        if notes is None:
-            raise ValueError("Invalid value for `notes`, must not be `None`")  # noqa: E501
 
-        self._notes = notes
+        self._goals_diff = goals_diff
+
+    @property
+    def form(self) -> str:
+        """Gets the form of this Team.
+
+
+        :return: The form of this Team.
+        :rtype: str
+        """
+        return self._form
+
+    @form.setter
+    def form(self, form: str):
+        """Sets the form of this Team.
+
+
+        :param form: The form of this Team.
+        :type form: str
+        """
+
+        self._form = form
+
+    @property
+    def description(self) -> str:
+        """Gets the description of this Team.
+
+
+        :return: The description of this Team.
+        :rtype: str
+        """
+        return self._description
+
+    @description.setter
+    def description(self, description: str):
+        """Sets the description of this Team.
+
+
+        :param description: The description of this Team.
+        :type description: str
+        """
+
+        self._description = description

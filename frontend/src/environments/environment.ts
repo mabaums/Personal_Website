@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  API_BASE_PATH: "http://localhost:8080/mabaums/Personal_Website/1.1.0"
+  API_BASE_PATH: "http://localhost:8080/mabaums/Personal_Website/1.2.0"
 };
 
 /*

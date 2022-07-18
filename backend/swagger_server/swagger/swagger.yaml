@@ -7,9 +7,9 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.1.0
+  version: 1.2.0
 servers:
-- url: https://virtserver.swaggerhub.com/mabaums/Personal_Website/1.1.0
+- url: https://virtserver.swaggerhub.com/mabaums/Personal_Website/1.2.0
   description: SwaggerHub API Auto Mocking
 tags:
 - name: admins
@@ -17,14 +17,14 @@ tags:
 - name: developers
   description: Operations available to regular developers
 paths:
-  /team:
+  /standings:
     get:
       tags:
       - client
-      summary: Get team
-      operationId: get_team
+      summary: Get standings from the selected league
+      operationId: get_standing
       parameters:
-      - name: teamID
+      - name: leagueID
         in: query
         required: false
         style: form
@@ -33,23 +33,20 @@ paths:
           type: integer
       responses:
         "200":
-          description: Ok
-      x-openapi-router-controller: swagger_server.controllers.client_controller
-  /standings:
-    get:
-      tags:
-      - client
-      summary: Get standings of premier league
-      operationId: get_standing
-      responses:
-        "200":
           description: Standings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/team'
+                x-content-type: application/json
       x-openapi-router-controller: swagger_server.controllers.client_controller
   /predictRound:
     get:
       tags:
       - client
-      summary: predict every game of a certain round
+      summary: Predict a certain round based on the previous weeks.
       operationId: predict_round
       parameters:
       - name: roundNumber
@@ -59,11 +56,25 @@ paths:
         explode: true
         schema:
           type: integer
+      - name: algoID
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
       responses:
         "200":
-          description: Predicted round
+          description: Preidcted round
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/predicted_game'
+                x-content-type: application/json
       x-openapi-router-controller: swagger_server.controllers.client_controller
-  /predict:
+  /predictGame:
     get:
       tags:
       - client
@@ -84,148 +95,102 @@ paths:
         explode: true
         schema:
           type: integer
+      - name: algoID
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
       responses:
         "200":
           description: Game Predicted
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Game'
+                $ref: '#/components/schemas/predicted_game'
       x-openapi-router-controller: swagger_server.controllers.client_controller
-  /teams:
+  /team:
     get:
       tags:
       - client
-      summary: returns Teams
-      description: |
-        Returns all of the teams in the EPL and their rank.
-      operationId: get_teams
+      summary: get team of specified id
+      operationId: get_team
+      parameters:
+      - name: teamID
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
       responses:
         "200":
-          description: all teams
+          description: Team returned
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Team'
-                x-content-type: application/json
+                $ref: '#/components/schemas/team'
       x-openapi-router-controller: swagger_server.controllers.client_controller
 components:
   schemas:
-    Game:
-      required:
-      - goals_away
-      - goals_home
-      - name_away
-      - name_home
+    team:
+      type: object
+      properties:
+        rank:
+          type: integer
+          example: 1
+        team_name:
+          type: string
+          example: Chelsea FC
+        team_logo:
+          type: string
+        points:
+          type: integer
+          example: 100
+        goalsDiff:
+          type: string
+          example: "40"
+        form:
+          type: string
+        description:
+          type: string
+      example:
+        form: form
+        rank: 1
+        description: description
+        goalsDiff: "40"
+        team_name: Chelsea FC
+        team_logo: team_logo
+        points: 100
+    predicted_game:
       type: object
       properties:
         goals_home:
           type: integer
+          example: 100
         goals_away:
           type: integer
+          example: 1
         name_home:
           type: string
+          example: Chelsea FC
         name_away:
           type: string
+          example: Manchester City
       example:
-        name_away: name_away
-        name_home: name_home
-        goals_home: 0
-        goals_away: 6
-    Team:
-      required:
-      - Attendance
-      - D
-      - GA
-      - GD
-      - GF
-      - Goalkeeper
-      - L
-      - Mp
-      - Notes
-      - Pts
-      - Rk
-      - Squad
-      - Top_Scorer
-      - W
-      - xG
-      - xGA
-      - xGD
-      - xGD/90
+        name_away: Manchester City
+        name_home: Chelsea FC
+        goals_home: 100
+        goals_away: 1
+    player:
       type: object
       properties:
-        Rk:
-          type: integer
-          example: 1
-        Squad:
+        name:
           type: string
-          example: Chelsea FC
-        MP:
-          type: integer
-          example: 38
-        W:
-          type: integer
-          example: 25
-        D:
-          type: integer
-          example: 0
-        L:
-          type: integer
-          example: 0
-        GF:
-          type: integer
-          example: 50
-        GA:
-          type: integer
-          example: 50
-        GD:
+    coach:
+      type: object
+      properties:
+        name:
           type: string
-          example: "50"
-        xGA:
-          type: number
-          example: 32.7
-        xG:
-          type: number
-          example: 25.7
-        xGD:
-          type: string
-          example: "-12"
-        xGD/90:
-          type: string
-          example: "-1.3"
-        Attendance:
-          type: number
-          example: 52000
-        top_scorer:
-          type: string
-          example: Eden Hazard
-        Goalkeepr:
-          type: string
-          example: Petr Cech
-        Pts:
-          type: integer
-        Notes:
-          type: string
-          example: Relegated
-      example:
-        Attendance: 52000
-        top_scorer: Eden Hazard
-        Goalkeepr: Petr Cech
-        MP: 38
-        D: 0
-        L: 0
-        Pts: 0
-        xG: 25.7
-        xGA: 32.7
-        xGD: "-12"
-        W: 25
-        Rk: 1
-        GA: 50
-        Squad: Chelsea FC
-        xGD/90: "-1.3"
-        GD: "50"
-        Notes: Relegated
-        GF: 50
 

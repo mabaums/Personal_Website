@@ -5,7 +5,7 @@ from __future__ import absolute_import
 from flask import json
 from six import BytesIO
 
-from swagger_server.models.game import Game  # noqa: E501
+from swagger_server.models.predicted_game import PredictedGame  # noqa: E501
 from swagger_server.models.team import Team  # noqa: E501
 from swagger_server.test import BaseTestCase
 
@@ -16,35 +16,26 @@ class TestClientController(BaseTestCase):
     def test_get_standing(self):
         """Test case for get_standing
 
-        Get standings of premier league
+        Get standings from the selected league
         """
+        query_string = [('league_id', 56)]
         response = self.client.open(
-            '/mabaums/Personal_Website/1.1.0/standings',
-            method='GET')
+            '/mabaums/Personal_Website/1.2.0/standings',
+            method='GET',
+            query_string=query_string)
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
     def test_get_team(self):
         """Test case for get_team
 
-        Get team
+        get team of specified id
         """
         query_string = [('team_id', 56)]
         response = self.client.open(
-            '/mabaums/Personal_Website/1.1.0/team',
+            '/mabaums/Personal_Website/1.2.0/team',
             method='GET',
             query_string=query_string)
-        self.assert200(response,
-                       'Response body is : ' + response.data.decode('utf-8'))
-
-    def test_get_teams(self):
-        """Test case for get_teams
-
-        returns Teams
-        """
-        response = self.client.open(
-            '/mabaums/Personal_Website/1.1.0/teams',
-            method='GET')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
@@ -54,9 +45,10 @@ class TestClientController(BaseTestCase):
         Predict the outcome of two teams playing
         """
         query_string = [('home_id', 56),
-                        ('away_id', 56)]
+                        ('away_id', 56),
+                        ('algo_id', 56)]
         response = self.client.open(
-            '/mabaums/Personal_Website/1.1.0/predict',
+            '/mabaums/Personal_Website/1.2.0/predictGame',
             method='GET',
             query_string=query_string)
         self.assert200(response,
@@ -65,11 +57,12 @@ class TestClientController(BaseTestCase):
     def test_predict_round(self):
         """Test case for predict_round
 
-        predict every game of a certain round
+        Predict a certain round based on the previous weeks.
         """
-        query_string = [('round_number', 56)]
+        query_string = [('round_number', 56),
+                        ('algo_id', 56)]
         response = self.client.open(
-            '/mabaums/Personal_Website/1.1.0/predictRound',
+            '/mabaums/Personal_Website/1.2.0/predictRound',
             method='GET',
             query_string=query_string)
         self.assert200(response,

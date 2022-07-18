@@ -21,7 +21,7 @@ export class StandingsComponent implements OnInit {
   constructor(private clientApi: ClientService) { }
   columnDefs = [
     { field: 'rank' },
-    { field: 'team', cellRenderer: TeamCellComponent},
+    { field: 'team_name'}, // TODO: Change back to cell renderer component with passing logo and change field title?
     { field: 'points' },
     { field: 'goalsDiff'},
     { field: 'form'},
@@ -34,8 +34,7 @@ export class StandingsComponent implements OnInit {
 
     this.clientApi.getStanding().subscribe(
       body => {
-        this.standings = body.response[0].league.standings[0]; // Results in array of standings with various info? could probably change some stuff
-        console.log(body);
+        this.standings = body; // Results in array of standings with various info? could probably change some stuff
       }
     )
   }

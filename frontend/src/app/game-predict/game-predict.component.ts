@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatFormField } from '@angular/material/form-field';
-import { ClientService, Game } from 'api-swagger-library';
+import { ClientService, PredictedGame } from 'api-swagger-library';
 import { MatTableDataSource } from '@angular/material/table';
 
 interface GameWeek {
@@ -38,7 +38,7 @@ export class GamePredictComponent implements OnInit {
       this.gameWeeks.push({value: i, viewValue : "Game Week ".concat(i.toString())})
     }
   }
-  game: Game | undefined;
+  game: PredictedGame | undefined;
   ngOnInit(): void {
 
   }
@@ -55,7 +55,7 @@ export class GamePredictComponent implements OnInit {
     this.isLoading = true;
     this.clientApi.predictGame(homeId, awayId).subscribe(
       body => {
-        this.game = body as Game;
+        this.game = body as PredictedGame;
         this.isLoading = false;
       }
     )

@@ -10,12 +10,6 @@
  * Do not edit the class manually.
  */
 
-export interface Team { 
-    rank?: number;
-    teamName?: string;
-    teamLogo?: string;
-    points?: number;
-    goalsDiff?: string;
-    form?: string;
-    description?: string;
+export interface Player { 
+    name?: string;
 }

@@ -19,7 +19,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   ],
 })
 
-export class TeamListComponent implements OnInit, AfterViewInit{
+export class TeamListComponent implements OnInit{
 
   teams: Team[];
   dataSource: MatTableDataSource<Team>;
@@ -32,67 +32,6 @@ export class TeamListComponent implements OnInit, AfterViewInit{
   constructor(private clientApi: ClientService) { 
     this.teams = [];
     this.dataSource = new MatTableDataSource(this.teams);
-
-    this.options = {
-      theme: 'ag-default-dark',
-      autoSize:true,
-      title: {
-        text: 'Season Performance'
-      },
-      subtitle: {
-        text: 'Points by match Day'
-      },
-      data: [
-        {
-          match_day: '1',
-          Points: 3,
-        },
-        {
-          match_day: '2',
-          Points: 6
-        },
-        {
-          match_day: '3',
-          Points: 9
-        },
-        {
-          match_day: '4',
-          Points: 9
-        },
-        {
-          match_day: '5',
-          Points: 9
-        },
-        {
-          match_day: '6',
-          Points: 9
-        },
-        {
-          match_day: '7',
-          Points: 9
-        }
-      ],
-      series: [{
-          xKey: 'match_day',
-          yKey: 'Points',
-      }],
-  };
-
-  }
-  ngAfterViewInit(): void {
-    this.clientApi.getTeams().subscribe(
-      body => {
-        this.teams = body;
-        this.dataSource = new MatTableDataSource(this.teams);
-        this.dataSource.sort = this.sort;
-      }
-    )
-
-    this.clientApi.getStanding().subscribe(
-      body => {
-        console.log(body);
-      }
-    )
 
   }
 

@@ -27,8 +27,19 @@ class DataStore:
 
     def get_standings(self):
         f = open('data/39-2021.json', encoding='utf-8')
-        json_standings = json.load(f)
-        return json_standings
+        data = json.load(f)
+        standings = data['response'][0]['league']['standings'][0]
+        teams = []
+        for team in standings:
+            teams.append(Team(rank=team['rank'],
+                              team_name=team['team']['name'],
+                              team_logo=team['team']['logo'],
+                              goals_diff=team['goalsDiff'],
+                              points=team['points'],
+                              form=team['form'],
+                              description=team['description']))
+        print(teams)
+        return teams
 
     def get_fixture(self, fixture_id=0):
         return self.fixtures[fixture_id]

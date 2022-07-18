@@ -26,7 +26,7 @@ export class TeamDetailComponent implements OnInit {
   ngOnInit(): void {
     console.log()
     this.clientApi.getTeam(this.name_to_id[this.team_name!]).subscribe(body => {
-      this.team = body.response;
+      this.team = body;
       }
     )
   }
