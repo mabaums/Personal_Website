@@ -9,7 +9,7 @@ headers = {
     'x-rapidapi-key': "93e03c58cd2dcde693cc96a47ed67a71"
     }
 
-conn.request("GET", "/fixtures?league=39&season=2021", headers=headers)
+conn.request("GET", "/teams/statistics?season=2021&team=33&league=39", headers=headers)
 
 res = conn.getresponse()
 data = res.read()

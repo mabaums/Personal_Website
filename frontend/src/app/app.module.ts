@@ -16,6 +16,7 @@ import { MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import { AgGridModule } from 'ag-grid-angular';
 import { FormsModule } from '@angular/forms';
+import { MatTabsModule } from '@angular/material/tabs';
 import { AgChartsAngularModule } from 'ag-charts-angular';
 import { GamePredictComponent } from './game-predict/game-predict.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -28,6 +29,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { HomePageComponent } from './home-page/home-page.component';
 import { environment } from 'src/environments/environment';
 import { BASE_PATH } from 'api-swagger-library';
+
 
 @NgModule({
   declarations: [
@@ -44,6 +46,7 @@ import { BASE_PATH } from 'api-swagger-library';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    MatTabsModule,
     BrowserAnimationsModule,
     MatTableModule,
     MatToolbarModule,

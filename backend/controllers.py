@@ -12,7 +12,7 @@ from data.datastore import DataStore
 datastore = DataStore()
 
 
-def get_team(team_id=10):
+def get_team(team_id=65):
     return datastore.get_team(team_id)
 
 

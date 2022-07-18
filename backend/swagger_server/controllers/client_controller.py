@@ -28,7 +28,7 @@ def get_team(team_id=None):  # noqa: E501
 
     :rtype: None
     """
-    return controllers.get_team()
+    return controllers.get_team(team_id)
 
 def get_teams():  # noqa: E501
     """returns Teams

@@ -34,9 +34,26 @@ class DataStore:
         return self.fixtures[fixture_id]
 
     def get_team(self, team_id=0):
+        import http.client
+
+        import http.client
+
+        conn = http.client.HTTPSConnection("v3.football.api-sports.io")
+
+        headers = {
+            'x-rapidapi-host': "v3.football.api-sports.io",
+            'x-rapidapi-key': "93e03c58cd2dcde693cc96a47ed67a71"
+        }
+
+        conn.request("GET", "/teams/statistics?season=2021&team={}&league=39".format(team_id), headers=headers)
+
+        res = conn.getresponse()
+        data = res.read()
+
+        #print(data.decode("utf-8"))
         f = open('data/50-39-2021.json', encoding='utf-8')
         team_info = json.load(f)
-        return team_info
+        return json.loads(data.decode('utf-8'))
 
     def __load_standings(self):
         """
