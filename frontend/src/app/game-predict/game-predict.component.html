@@ -1,3 +1,74 @@
+<mat-grid-list cols="10" rowHeight="5%">
+    <mat-grid-tile colspan="1" rowspan="15" class="algorithims">
+        <h2 class="algo-title">Choose algorithm</h2>
+        <mat-radio-group class="radio-group">
+            <mat-radio-button class="radio-button">
+                CNN
+            </mat-radio-button>
+            <mat-radio-button class="radio-button">
+                RFN
+            </mat-radio-button>
+            <mat-radio-button class="radio-button">
+                LSTM
+            </mat-radio-button>
+            <mat-radio-button class="radio-button">
+                Coin Flip
+            </mat-radio-button>
+        </mat-radio-group>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="5" rowspan="4" class="title"><h1 class="title-title">Predict Central</h1>
+    <h2>Here you can choose the algorithim of your choice and predict either a series of games or a singular game </h2></mat-grid-tile>
+    <mat-grid-tile rowspan="14" colspan="5" class="game-predicts">
+        <mat-card class="card"></mat-card>
+        <mat-card class="card"></mat-card>
+        <mat-card class="card"></mat-card>
+        <mat-card class="card"></mat-card>
+        <mat-card class="card"></mat-card>
+        <mat-card class="card"></mat-card>
+        <mat-card class="card"></mat-card>
+        <mat-card class="card"></mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile rowspan="15" colspan="3" class="settings">
+
+    </mat-grid-tile>
+</mat-grid-list>
+<!--
+<div class="center-console-container">
+    <div class="console-header">
+        <h1 class="main-header">Prediction Central</h1>
+        <h2>You can begin by choosing an algorithm and then tweaking indivdual parameters</h2>
+        <h3>You can then save your algorightim </h3>
+
+    </div>
+    <div class="main-predict-console">
+        <div class="algorithims">
+            <h2>Choose an algorithim </h2>
+            <mat-radio-group class="radio-group">
+                <mat-radio-button class="radio-button">
+                    CNN
+                </mat-radio-button>
+                <mat-radio-button class="radio-button">
+                    RFN
+                </mat-radio-button>
+                <mat-radio-button class="radio-button">
+                    LSTM
+                </mat-radio-button>
+                <mat-radio-button class="radio-button">
+                    Coin Flip
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="algorithm-specifcs"></div>
+        <div class="game-predicts">
+            <h1>Here you can see the games you predict</h1>
+        </div>
+    </div>
+</div>
+-->
+
+
+<!--
+
 <div class="center">
     <h1>Predict either a round or a specific game</h1>
     <div>
@@ -13,7 +84,7 @@
                 </mat-select>
             </mat-form-field>
         </span>
-        <button mat-flat-button color="primary" (click)="predictRound(selectedWeek)"
+        <button mat-flat-button color="primary" class="button" (click)="predictRound(selectedWeek)"
             [disabled]="isLoading">Predict Round</button>
         <div class="right">        <p>Choose which algorightim and other stats here</p></div>
 
@@ -58,3 +129,5 @@
         </tr>
     </table>
 </div>
+
+-->

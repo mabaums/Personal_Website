@@ -1,3 +1,21 @@
-<div *ngIf="standings">
+<div *ngIf="standings" class="table">
     <ag-grid-angular class="ag-theme-alpine-dark" [columnDefs]="columnDefs" [rowData]="standings" (gridReady)="onGridReady($event)"></ag-grid-angular>
 </div>
+<mat-form-field>
+    <mat-label>
+        League
+    </mat-label>
+    <mat-select [(value)]="selectedLeague" (selectionChange)="getStandings()">
+        <mat-option *ngFor="let league of leagues" [value]="league.value">
+            {{league.viewValue}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+<mat-form-field>
+    <mat-label>Season year</mat-label>
+    <mat-select [(value)]="selectedSeason" (selectionChange)="getStandings()">
+        <mat-option *ngFor="let season of seasons" [value]="season">
+            {{season}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>

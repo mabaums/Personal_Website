@@ -10,12 +10,15 @@
  * Do not edit the class manually.
  */
 
-export interface Player { 
-    name?: string;
-    firstname?: string;
-    lastname?: string;
-    team_id?: number;
-    photo?: string;
-    age?: number;
-    player_id?: number;
+export interface Fixture { 
+    fixture_id?: number;
+    referee?: string;
+    home_team_id?: number;
+    away_team_id?: number;
+    home_goals?: number;
+    away_goals?: number;
+    league_id?: number;
+    season_year?: number;
+    round?: string;
+    date?: number;
 }

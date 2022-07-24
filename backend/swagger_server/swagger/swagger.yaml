@@ -17,6 +17,75 @@ tags:
 - name: developers
   description: Operations available to regular developers
 paths:
+  /squad:
+    get:
+      tags:
+      - client
+      summary: get list of players from a team
+      operationId: get_squad
+      parameters:
+      - name: team_id
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: squad
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/player'
+                x-content-type: application/json
+      x-openapi-router-controller: swagger_server.controllers.client_controller
+  /fixture:
+    get:
+      tags:
+      - client
+      summary: Get basic info about a fixture
+      operationId: get_fixture
+      parameters:
+      - name: fixture_id
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Fixture
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/fixture'
+      x-openapi-router-controller: swagger_server.controllers.client_controller
+  /player:
+    get:
+      tags:
+      - client
+      summary: get basic info about a player
+      operationId: get_player
+      parameters:
+      - name: player_id
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: player
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/player'
+      x-openapi-router-controller: swagger_server.controllers.client_controller
   /standings:
     get:
       tags:
@@ -31,6 +100,13 @@ paths:
         explode: true
         schema:
           type: integer
+      - name: season
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
       responses:
         "200":
           description: Standings
@@ -39,7 +115,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/team'
+                  $ref: '#/components/schemas/team_standing'
                 x-content-type: application/json
       x-openapi-router-controller: swagger_server.controllers.client_controller
   /predictRound:
@@ -137,6 +213,28 @@ components:
     team:
       type: object
       properties:
+        team_id:
+          type: integer
+        team_name:
+          type: string
+        team_logo:
+          type: string
+        form:
+          type: string
+        description:
+          type: string
+      example:
+        form: form
+        description: description
+        team_id: 0
+        team_name: team_name
+        team_logo: team_logo
+    team_standing:
+      type: object
+      properties:
+        team_id:
+          type: integer
+          example: 44
         rank:
           type: integer
           example: 1
@@ -159,6 +257,7 @@ components:
         form: form
         rank: 1
         description: description
+        team_id: 44
         goalsDiff: "40"
         team_name: Chelsea FC
         team_logo: team_logo
@@ -188,6 +287,60 @@ components:
       properties:
         name:
           type: string
+        firstname:
+          type: string
+        lastname:
+          type: string
+        team_id:
+          type: integer
+        photo:
+          type: string
+        age:
+          type: integer
+        player_id:
+          type: integer
+      example:
+        firstname: firstname
+        player_id: 1
+        name: name
+        photo: photo
+        team_id: 0
+        age: 6
+        lastname: lastname
+    fixture:
+      type: object
+      properties:
+        fixture_id:
+          type: integer
+        referee:
+          type: string
+        home_team_id:
+          type: integer
+        away_team_id:
+          type: integer
+        home_goals:
+          type: integer
+        away_goals:
+          type: integer
+        league_id:
+          type: integer
+        season_year:
+          type: integer
+        round:
+          type: string
+        date:
+          type: integer
+      example:
+        fixture_id: 0
+        date: 9
+        home_team_id: 6
+        home_goals: 5
+        round: round
+        referee: referee
+        away_team_id: 1
+        away_goals: 5
+        league_id: 2
+        season_year: 7
     coach:
       type: object
       properties:

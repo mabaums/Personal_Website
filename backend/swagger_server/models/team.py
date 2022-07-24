@@ -14,48 +14,38 @@ class Team(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, rank: int=None, team_name: str=None, team_logo: str=None, points: int=None, goals_diff: str=None, form: str=None, description: str=None):  # noqa: E501
+    def __init__(self, team_id: int=None, team_name: str=None, team_logo: str=None, form: str=None, description: str=None):  # noqa: E501
         """Team - a model defined in Swagger
 
-        :param rank: The rank of this Team.  # noqa: E501
-        :type rank: int
+        :param team_id: The team_id of this Team.  # noqa: E501
+        :type team_id: int
         :param team_name: The team_name of this Team.  # noqa: E501
         :type team_name: str
         :param team_logo: The team_logo of this Team.  # noqa: E501
         :type team_logo: str
-        :param points: The points of this Team.  # noqa: E501
-        :type points: int
-        :param goals_diff: The goals_diff of this Team.  # noqa: E501
-        :type goals_diff: str
         :param form: The form of this Team.  # noqa: E501
         :type form: str
         :param description: The description of this Team.  # noqa: E501
         :type description: str
         """
         self.swagger_types = {
-            'rank': int,
+            'team_id': int,
             'team_name': str,
             'team_logo': str,
-            'points': int,
-            'goals_diff': str,
             'form': str,
             'description': str
         }
 
         self.attribute_map = {
-            'rank': 'rank',
+            'team_id': 'team_id',
             'team_name': 'team_name',
             'team_logo': 'team_logo',
-            'points': 'points',
-            'goals_diff': 'goalsDiff',
             'form': 'form',
             'description': 'description'
         }
-        self._rank = rank
+        self._team_id = team_id
         self._team_name = team_name
         self._team_logo = team_logo
-        self._points = points
-        self._goals_diff = goals_diff
         self._form = form
         self._description = description
 
@@ -71,25 +61,25 @@ class Team(Model):
         return util.deserialize_model(dikt, cls)
 
     @property
-    def rank(self) -> int:
-        """Gets the rank of this Team.
+    def team_id(self) -> int:
+        """Gets the team_id of this Team.
 
 
-        :return: The rank of this Team.
+        :return: The team_id of this Team.
         :rtype: int
         """
-        return self._rank
+        return self._team_id
 
-    @rank.setter
-    def rank(self, rank: int):
-        """Sets the rank of this Team.
+    @team_id.setter
+    def team_id(self, team_id: int):
+        """Sets the team_id of this Team.
 
 
-        :param rank: The rank of this Team.
-        :type rank: int
+        :param team_id: The team_id of this Team.
+        :type team_id: int
         """
 
-        self._rank = rank
+        self._team_id = team_id
 
     @property
     def team_name(self) -> str:
@@ -132,48 +122,6 @@ class Team(Model):
         """
 
         self._team_logo = team_logo
-
-    @property
-    def points(self) -> int:
-        """Gets the points of this Team.
-
-
-        :return: The points of this Team.
-        :rtype: int
-        """
-        return self._points
-
-    @points.setter
-    def points(self, points: int):
-        """Sets the points of this Team.
-
-
-        :param points: The points of this Team.
-        :type points: int
-        """
-
-        self._points = points
-
-    @property
-    def goals_diff(self) -> str:
-        """Gets the goals_diff of this Team.
-
-
-        :return: The goals_diff of this Team.
-        :rtype: str
-        """
-        return self._goals_diff
-
-    @goals_diff.setter
-    def goals_diff(self, goals_diff: str):
-        """Sets the goals_diff of this Team.
-
-
-        :param goals_diff: The goals_diff of this Team.
-        :type goals_diff: str
-        """
-
-        self._goals_diff = goals_diff
 
     @property
     def form(self) -> str:

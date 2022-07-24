@@ -14,20 +14,50 @@ class Player(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, name: str=None):  # noqa: E501
+    def __init__(self, name: str=None, firstname: str=None, lastname: str=None, team_id: int=None, photo: str=None, age: int=None, player_id: int=None):  # noqa: E501
         """Player - a model defined in Swagger
 
         :param name: The name of this Player.  # noqa: E501
         :type name: str
+        :param firstname: The firstname of this Player.  # noqa: E501
+        :type firstname: str
+        :param lastname: The lastname of this Player.  # noqa: E501
+        :type lastname: str
+        :param team_id: The team_id of this Player.  # noqa: E501
+        :type team_id: int
+        :param photo: The photo of this Player.  # noqa: E501
+        :type photo: str
+        :param age: The age of this Player.  # noqa: E501
+        :type age: int
+        :param player_id: The player_id of this Player.  # noqa: E501
+        :type player_id: int
         """
         self.swagger_types = {
-            'name': str
+            'name': str,
+            'firstname': str,
+            'lastname': str,
+            'team_id': int,
+            'photo': str,
+            'age': int,
+            'player_id': int
         }
 
         self.attribute_map = {
-            'name': 'name'
+            'name': 'name',
+            'firstname': 'firstname',
+            'lastname': 'lastname',
+            'team_id': 'team_id',
+            'photo': 'photo',
+            'age': 'age',
+            'player_id': 'player_id'
         }
         self._name = name
+        self._firstname = firstname
+        self._lastname = lastname
+        self._team_id = team_id
+        self._photo = photo
+        self._age = age
+        self._player_id = player_id
 
     @classmethod
     def from_dict(cls, dikt) -> 'Player':
@@ -60,3 +90,129 @@ class Player(Model):
         """
 
         self._name = name
+
+    @property
+    def firstname(self) -> str:
+        """Gets the firstname of this Player.
+
+
+        :return: The firstname of this Player.
+        :rtype: str
+        """
+        return self._firstname
+
+    @firstname.setter
+    def firstname(self, firstname: str):
+        """Sets the firstname of this Player.
+
+
+        :param firstname: The firstname of this Player.
+        :type firstname: str
+        """
+
+        self._firstname = firstname
+
+    @property
+    def lastname(self) -> str:
+        """Gets the lastname of this Player.
+
+
+        :return: The lastname of this Player.
+        :rtype: str
+        """
+        return self._lastname
+
+    @lastname.setter
+    def lastname(self, lastname: str):
+        """Sets the lastname of this Player.
+
+
+        :param lastname: The lastname of this Player.
+        :type lastname: str
+        """
+
+        self._lastname = lastname
+
+    @property
+    def team_id(self) -> int:
+        """Gets the team_id of this Player.
+
+
+        :return: The team_id of this Player.
+        :rtype: int
+        """
+        return self._team_id
+
+    @team_id.setter
+    def team_id(self, team_id: int):
+        """Sets the team_id of this Player.
+
+
+        :param team_id: The team_id of this Player.
+        :type team_id: int
+        """
+
+        self._team_id = team_id
+
+    @property
+    def photo(self) -> str:
+        """Gets the photo of this Player.
+
+
+        :return: The photo of this Player.
+        :rtype: str
+        """
+        return self._photo
+
+    @photo.setter
+    def photo(self, photo: str):
+        """Sets the photo of this Player.
+
+
+        :param photo: The photo of this Player.
+        :type photo: str
+        """
+
+        self._photo = photo
+
+    @property
+    def age(self) -> int:
+        """Gets the age of this Player.
+
+
+        :return: The age of this Player.
+        :rtype: int
+        """
+        return self._age
+
+    @age.setter
+    def age(self, age: int):
+        """Sets the age of this Player.
+
+
+        :param age: The age of this Player.
+        :type age: int
+        """
+
+        self._age = age
+
+    @property
+    def player_id(self) -> int:
+        """Gets the player_id of this Player.
+
+
+        :return: The player_id of this Player.
+        :rtype: int
+        """
+        return self._player_id
+
+    @player_id.setter
+    def player_id(self, player_id: int):
+        """Sets the player_id of this Player.
+
+
+        :param player_id: The player_id of this Player.
+        :type player_id: int
+        """
+
+        self._player_id = player_id

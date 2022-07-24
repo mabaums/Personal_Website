@@ -7,8 +7,9 @@
 </ag-grid-angular>
 -->
 <div class="center">
-    <h1>{{team.team.name}} <img style="max-width: 40px;" src="{{team.team.logo}}"></h1>
-    <h2>{{team.league.name}} </h2>
+    <h1>{{team | json}}</h1>
+    <h1>{{team.team_name}} <img style="max-width: 40px;" src="{{team.team_logo}}"></h1>
+    <h2>{{team.form}} </h2>
 
 </div>
 <div>
@@ -23,12 +24,6 @@
             In depth stats
         </mat-tab>
         <mat-tab label="Fixtures">
-            <h3 class="center" >Games Played: {{team.fixtures.played.total}}</h3>
-            Draws: Away({{team.fixtures.draws.away}}), Home({{team.fixtures.draws.home}})
-            <br>
-            Wins: Away({{team.fixtures.wins.away}}), Away({{team.fixtures.wins.away}})
-            <br>
-            Losses: Away({{team.fixtures.loses.away | json}}), Away({{team.fixtures.loses.away | json}}),
         </mat-tab>
     </mat-tab-group>
 </div>

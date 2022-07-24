@@ -11,11 +11,9 @@
  */
 
 export interface Team { 
-    rank?: number;
-    teamName?: string;
-    teamLogo?: string;
-    points?: number;
-    goalsDiff?: string;
+    team_id?: number;
+    team_name?: string;
+    team_logo?: string;
     form?: string;
     description?: string;
 }

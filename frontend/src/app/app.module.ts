@@ -27,9 +27,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { TeamCardComponent } from './team-card/team-card.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { HomePageComponent } from './home-page/home-page.component';
+import { MatRadioModule } from '@angular/material/radio'
 import { environment } from 'src/environments/environment';
 import { BASE_PATH } from 'api-swagger-library';
-
+import { TestComponent } from './test/test.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,8 @@ import { BASE_PATH } from 'api-swagger-library';
     StandingsComponent,
     TeamCellComponent,
     TeamCardComponent,
-    HomePageComponent
+    HomePageComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +65,10 @@ import { BASE_PATH } from 'api-swagger-library';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatRadioModule,
+    MatGridListModule,
+    MatCardModule
   ],
   providers: [{ provide: BASE_PATH, useValue: environment.API_BASE_PATH}],
   bootstrap: [AppComponent]

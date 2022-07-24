@@ -11,8 +11,8 @@
  */
 
 export interface PredictedGame { 
-    goalsHome?: number;
-    goalsAway?: number;
-    nameHome?: string;
-    nameAway?: string;
+    goals_home?: number;
+    goals_away?: number;
+    name_home?: string;
+    name_away?: string;
 }

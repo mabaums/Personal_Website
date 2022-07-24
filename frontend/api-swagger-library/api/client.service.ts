@@ -17,8 +17,11 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
+import { Fixture } from '../model/fixture';
+import { Player } from '../model/player';
 import { PredictedGame } from '../model/predictedGame';
 import { Team } from '../model/team';
+import { TeamStanding } from '../model/teamStanding';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -57,21 +60,21 @@ export class ClientService {
 
 
     /**
-     * Get standings from the selected league
+     * Get basic info about a fixture
      * 
-     * @param leagueID 
+     * @param fixture_id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getStanding(leagueID?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Team>>;
-    public getStanding(leagueID?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Team>>>;
-    public getStanding(leagueID?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Team>>>;
-    public getStanding(leagueID?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getFixture(fixture_id?: number, observe?: 'body', reportProgress?: boolean): Observable<Fixture>;
+    public getFixture(fixture_id?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Fixture>>;
+    public getFixture(fixture_id?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Fixture>>;
+    public getFixture(fixture_id?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (leagueID !== undefined && leagueID !== null) {
-            queryParameters = queryParameters.set('leagueID', <any>leagueID);
+        if (fixture_id !== undefined && fixture_id !== null) {
+            queryParameters = queryParameters.set('fixture_id', <any>fixture_id);
         }
 
         let headers = this.defaultHeaders;
@@ -89,7 +92,144 @@ export class ClientService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<Array<Team>>('get',`${this.basePath}/standings`,
+        return this.httpClient.request<Fixture>('get',`${this.basePath}/fixture`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * get basic info about a player
+     * 
+     * @param player_id 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getPlayer(player_id?: number, observe?: 'body', reportProgress?: boolean): Observable<Player>;
+    public getPlayer(player_id?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Player>>;
+    public getPlayer(player_id?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Player>>;
+    public getPlayer(player_id?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (player_id !== undefined && player_id !== null) {
+            queryParameters = queryParameters.set('player_id', <any>player_id);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Player>('get',`${this.basePath}/player`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * get list of players from a team
+     * 
+     * @param team_id 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getSquad(team_id?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Player>>;
+    public getSquad(team_id?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Player>>>;
+    public getSquad(team_id?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Player>>>;
+    public getSquad(team_id?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (team_id !== undefined && team_id !== null) {
+            queryParameters = queryParameters.set('team_id', <any>team_id);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Array<Player>>('get',`${this.basePath}/squad`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Get standings from the selected league
+     * 
+     * @param league_id 
+     * @param season 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getStanding(league_id?: number, season?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<TeamStanding>>;
+    public getStanding(league_id?: number, season?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<TeamStanding>>>;
+    public getStanding(league_id?: number, season?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<TeamStanding>>>;
+    public getStanding(league_id?: number, season?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (league_id !== undefined && league_id !== null) {
+            queryParameters = queryParameters.set('leagueID', <any>league_id);
+        }
+        if (season !== undefined && season !== null) {
+            queryParameters = queryParameters.set('season', <any>season);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Array<TeamStanding>>('get',`${this.basePath}/standings`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -103,19 +243,19 @@ export class ClientService {
     /**
      * get team of specified id
      * 
-     * @param teamID 
+     * @param team_id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getTeam(teamID?: number, observe?: 'body', reportProgress?: boolean): Observable<Team>;
-    public getTeam(teamID?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Team>>;
-    public getTeam(teamID?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Team>>;
-    public getTeam(teamID?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getTeam(team_id?: number, observe?: 'body', reportProgress?: boolean): Observable<Team>;
+    public getTeam(team_id?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Team>>;
+    public getTeam(team_id?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Team>>;
+    public getTeam(team_id?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (teamID !== undefined && teamID !== null) {
-            queryParameters = queryParameters.set('teamID', <any>teamID);
+        if (team_id !== undefined && team_id !== null) {
+            queryParameters = queryParameters.set('teamID', <any>team_id);
         }
 
         let headers = this.defaultHeaders;
@@ -147,29 +287,29 @@ export class ClientService {
     /**
      * Predict the outcome of two teams playing
      * 
-     * @param homeID 
-     * @param awayID 
-     * @param algoID 
+     * @param home_id 
+     * @param away_id 
+     * @param algo_id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public predictGame(homeID?: number, awayID?: number, algoID?: number, observe?: 'body', reportProgress?: boolean): Observable<PredictedGame>;
-    public predictGame(homeID?: number, awayID?: number, algoID?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PredictedGame>>;
-    public predictGame(homeID?: number, awayID?: number, algoID?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PredictedGame>>;
-    public predictGame(homeID?: number, awayID?: number, algoID?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public predictGame(home_id?: number, away_id?: number, algo_id?: number, observe?: 'body', reportProgress?: boolean): Observable<PredictedGame>;
+    public predictGame(home_id?: number, away_id?: number, algo_id?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PredictedGame>>;
+    public predictGame(home_id?: number, away_id?: number, algo_id?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PredictedGame>>;
+    public predictGame(home_id?: number, away_id?: number, algo_id?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
 
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (homeID !== undefined && homeID !== null) {
-            queryParameters = queryParameters.set('homeID', <any>homeID);
+        if (home_id !== undefined && home_id !== null) {
+            queryParameters = queryParameters.set('homeID', <any>home_id);
         }
-        if (awayID !== undefined && awayID !== null) {
-            queryParameters = queryParameters.set('awayID', <any>awayID);
+        if (away_id !== undefined && away_id !== null) {
+            queryParameters = queryParameters.set('awayID', <any>away_id);
         }
-        if (algoID !== undefined && algoID !== null) {
-            queryParameters = queryParameters.set('algoID', <any>algoID);
+        if (algo_id !== undefined && algo_id !== null) {
+            queryParameters = queryParameters.set('algoID', <any>algo_id);
         }
 
         let headers = this.defaultHeaders;
@@ -201,24 +341,24 @@ export class ClientService {
     /**
      * Predict a certain round based on the previous weeks.
      * 
-     * @param roundNumber 
-     * @param algoID 
+     * @param round_number 
+     * @param algo_id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public predictRound(roundNumber?: number, algoID?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<PredictedGame>>;
-    public predictRound(roundNumber?: number, algoID?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<PredictedGame>>>;
-    public predictRound(roundNumber?: number, algoID?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<PredictedGame>>>;
-    public predictRound(roundNumber?: number, algoID?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public predictRound(round_number?: number, algo_id?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<PredictedGame>>;
+    public predictRound(round_number?: number, algo_id?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<PredictedGame>>>;
+    public predictRound(round_number?: number, algo_id?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<PredictedGame>>>;
+    public predictRound(round_number?: number, algo_id?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (roundNumber !== undefined && roundNumber !== null) {
-            queryParameters = queryParameters.set('roundNumber', <any>roundNumber);
+        if (round_number !== undefined && round_number !== null) {
+            queryParameters = queryParameters.set('roundNumber', <any>round_number);
         }
-        if (algoID !== undefined && algoID !== null) {
-            queryParameters = queryParameters.set('algoID', <any>algoID);
+        if (algo_id !== undefined && algo_id !== null) {
+            queryParameters = queryParameters.set('algoID', <any>algo_id);
         }
 
         let headers = this.defaultHeaders;

@@ -10,12 +10,13 @@
  * Do not edit the class manually.
  */
 
-export interface Player { 
-    name?: string;
-    firstname?: string;
-    lastname?: string;
+export interface TeamStanding { 
     team_id?: number;
-    photo?: string;
-    age?: number;
-    player_id?: number;
+    rank?: number;
+    team_name?: string;
+    team_logo?: string;
+    points?: number;
+    goals_diff?: string;
+    form?: string;
+    description?: string;
 }

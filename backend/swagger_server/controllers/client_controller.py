@@ -1,24 +1,67 @@
 import connexion
 import six
 
+from swagger_server.models.fixture import Fixture  # noqa: E501
+from swagger_server.models.player import Player  # noqa: E501
 from swagger_server.models.predicted_game import PredictedGame  # noqa: E501
 from swagger_server.models.team import Team  # noqa: E501
+from swagger_server.models.team_standing import TeamStanding  # noqa: E501
 from swagger_server import util
 
 import controllers
 
-def get_standing(league_id=None):  # noqa: E501
+def get_fixture(fixture_id=None):  # noqa: E501
+    """Get basic info about a fixture
+
+     # noqa: E501
+
+    :param fixture_id: 
+    :type fixture_id: int
+
+    :rtype: Fixture
+    """
+    return controllers.get_fixture(fixture_id)
+
+
+def get_player(player_id=None):  # noqa: E501
+    """get basic info about a player
+
+     # noqa: E501
+
+    :param player_id: 
+    :type player_id: int
+
+    :rtype: Player
+    """
+    return controllers.get_player(player_id)
+
+
+def get_squad(team_id=None):  # noqa: E501
+    """get list of players from a team
+
+     # noqa: E501
+
+    :param team_id: 
+    :type team_id: int
+
+    :rtype: List[Player]
+    """
+    return controllers.get_squad(team_id)
+
+
+def get_standing(league_id=None, season=None):  # noqa: E501
     """Get standings from the selected league
 
      # noqa: E501
 
     :param league_id: 
     :type league_id: int
+    :param season: 
+    :type season: int
 
-    :rtype: List[Team]
+    :rtype: List[TeamStanding]
     """
-    #print(controllers.get_standing())
-    return controllers.get_standing()
+    return controllers.get_standing(league_id, season)
 
 
 def get_team(team_id=None):  # noqa: E501
@@ -48,7 +91,9 @@ def predict_game(home_id=None, away_id=None, algo_id=None):  # noqa: E501
 
     :rtype: PredictedGame
     """
-    return controllers.predict_game(home_id, away_id)
+
+    #TODO: Change predicted game yaml to be the two id's of the team you moron
+    return PredictedGame(1,2,'Chelsea', 'Man city?')
 
 
 def predict_round(round_number=None, algo_id=None):  # noqa: E501

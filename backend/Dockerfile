@@ -1,4 +1,6 @@
-FROM python:3.6-alpine
+# Stage 1
+FROM python:3.8-alpine
+FROM tensorflow/tensorflow
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app

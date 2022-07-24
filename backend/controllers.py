@@ -1,7 +1,7 @@
 import json
 from swagger_server.models.game import Game  # noqa: E501
 from swagger_server.models.team import Team  # noqa: E501
-
+from machine_learning import MachineLearning
 import pandas as pd
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Embedding, Dropout, Dense
@@ -11,13 +11,21 @@ from data.datastore import DataStore
 
 datastore = DataStore()
 
+def get_squad(team_id=44):
+    return datastore.get_squad(team_id)
+
+def get_player(player_id=0):
+    return datastore.get_player(player_id)
+
+def get_fixture(fixture_id=71056):
+    return datastore.get_fixture(fixture_id)
 
 def get_team(team_id=65):
     return datastore.get_team(team_id)
 
 
-def get_standing():
-    return datastore.get_standings()
+def get_standing(league_id, season):
+    return datastore.get_standings(league_id, season)
 
 
 def get_teams():
@@ -30,6 +38,10 @@ def predict_game(team_id=10, away_id=9):
 
 
 def predict_round(round_number=38):
+    ml = MachineLearning()
+    return ml.LSTM_predict(round_number)
+
+    '''
     data = datastore.get_data()
     data = data[['HomeTeam', 'AwayTeam', 'FTHG', 'FTAG', 'FTR']]  # This will be data used in the LSTM, with the last
     # 3 used as the score
@@ -40,7 +52,8 @@ def predict_round(round_number=38):
     curr_round = 1
 
     '''
-    This following loop sets the round numbers to each fixture
+
+    #This following loop sets the round numbers to each fixture
     '''
 
     for row in range(1, len(data) + 1):
@@ -122,3 +135,5 @@ def predict_round(round_number=38):
          }
         for i in range(len(retransformed_y_data['y_pred']))]
     return predicted_games
+    
+    '''
