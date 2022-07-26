@@ -25,8 +25,6 @@ class Fixture(Base):
 
     fixture_id = Column(Integer, primary_key=True)
     referee = Column(String(50))
-    time_stamp = Column(TIMESTAMP)
-    date = Column(TIMESTAMP)
     league_id = Column(Integer)
     round = Column(String(50))
     goals_ft_home = Column(Integer)

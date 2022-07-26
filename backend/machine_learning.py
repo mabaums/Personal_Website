@@ -22,8 +22,6 @@ class MachineLearning:
         self.score_transformer = RobustScaler()
         self.y_pred = None
 
-        #self.__load_data()
-
     def RFN_predict(self, round_number=38):
         data = self.dataStore.get_data()
         data = data[
@@ -63,8 +61,6 @@ class MachineLearning:
             y_pred = score_transformer.inverse_transform(y_pred).reshape(-1, 1)
             return {'y_actual': y_actual, 'y_pred': y_pred}
 
-
-
         def create_train_test_data(data, round):
             train_set = data[data['Round'] < round]
             test_set = data[data['Round'] == round]
@@ -101,6 +97,7 @@ class MachineLearning:
              }
             for i in range(len(retransformed_y_data['y_pred']))]
         return predicted_games
+
     def LSTM_predict(self, round_number=38):
         return PredictedGame(100, 0, 'chelsea', 'manchester city')
         data = self.dataStore.get_data()

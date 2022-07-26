@@ -1,42 +1,82 @@
-from sql_classes import *
+from data.sql_classes import *
 from google.cloud.sql.connector import Connector
 from sqlalchemy.orm import Session
 from sqlalchemy import select, insert
 import pg8000
 import sqlalchemy
-from api_handler import ApiHandler
+from data.api_handler import ApiHandler
+import logging
+import os
 
 
 class DataStore:
     def __init__(self):
         self.engine = self.__init_connection_engine()
         self.handler = ApiHandler()
+        self.session = None
 
         Base.metadata.create_all(self.engine)
-        print('__init__ called')
+        self.logger = logging.getLogger(__name__)
+        self.logger.info('DataStore object created')
 
     def push_objs(self, objects):
         session = Session(self.engine)
         session.add_all(objects)
         session.commit()
 
-    def get_fixture(self, fixture_ids=None, live=False, season=2021):
-        if fixture_ids is None:
-            self.handler.get_fixture(live=True)
-        else:
-            for fixture in fixture_ids:
-                self.handler.get_fixture(fixture_id=fixture)
+    def get_fixtures(self, league=None, season=2021, live=True):
+        if self.session is None:
+            self.session = Session(self.engine)
+
+        return self.handler.get_fixtures(league, season, live)
+
+
+    def get_fixture(self, fixture_id):
+        if self.session is None:
+            self.session = Session(self.engine)
+
+        fixture = self.session.query(Fixture).get(fixture_id)
+
+        if fixture is None:
+            self.logger.info(f'Fixture_id: {fixture_id} not found, attempting to get from API')
+            fixture_json, success = self.handler.get_fixture(fixture_id)
+            if success:
+                fixture_json = fixture_json[0]
+                new_fixture = Fixture(
+                    fixture_id=fixture_id,
+                    referee=fixture_json['fixture']['referee'],
+                    league_id=fixture_json['league']['id'],
+                    round=fixture_json['league']['round'],
+                    goals_ft_home=fixture_json['score']['fulltime']['home'],
+                    goals_ht_home=fixture_json['score']['halftime']['home'],
+                    goals_ft_away=fixture_json['score']['fulltime   ']['away'],
+                    goals_ht_away=fixture_json['score']['halftime']['away'],
+                    away_id=fixture_json['teams']['away']['id'],
+                    home_id=fixture_json['teams']['home']['id']
+                )
+
+                self.session.add(new_fixture)
+                self.session.commit()
+                return new_fixture.__repr__(), True
+            else:
+                return None, False
+        self.logger.info(f'Got fixture id: {fixture_id}')
+        return fixture.__repr__(), True
 
     def get_player(self, player_id=184, season_year=2021):
-        session = Session(self.engine)
+        if self.session is None:
+            self.session = Session(self.engine)
 
-        player_req = session.query(Player).get(player_id)
+        player_json = self.session.query(Player).get(player_id)
 
-        if player_req is None:
-            print('Player id and season combo not found')
-            player_json = self.handler.get_player(player_id, season_year)
+        if player_json is None:
+            self.logger.info(f'Player_id: {player_id}, season_year={season_year} not found in database, attempting to '
+                             f'get '
+                             f'from API.')
+            player_json, success = self.handler.get_player(player_id, season_year)
             if player_json is None:
-                return "No player with Id or other error"
+                return self.logger.warning(
+                    f'API did not return a player for player_id={player_id}, season_year={season_year}.')
             photo = player_json['player']['photo']
             name = player_json['player']['name']
             firstname = player_json['player']['firstname']
@@ -55,33 +95,11 @@ class DataStore:
                 photo=photo
             )
 
-            session.add(new_player)
-            session.commit()
+            self.session.add(new_player)
+            self.session.commit()
             return new_player.__repr__()
-            '''
-            for stats in player_json['statistics']:
-                goals = stats['goals']['total']
-                team_id = stats['team']['id']
-                league_id = stats['league']['id']
-
-                new_player = Player(
-                    player_id=player_id,
-                    season_year=season_year,
-                    name=name,
-                    firstname=firstname,
-                    lastname=lastname,
-                    photo=photo,
-                    age=age,
-                    birthdate=birthdate,
-                    league_id=league_id,
-                    goals=goals,
-                    team_id=team_id
-                )
-                session.add(new_player)
-                session.commit()
-                '''
-        session.commit()
-        return player_req.__repr__()
+        self.logger.info(f"Player with id {player_id} and season {season_year} found in DB, successfully returned")
+        return player_json.__repr__()
 
     def __init_connection_engine(self) -> sqlalchemy.engine.Engine:
         def getconn() -> pg8000.dbapi.Connection:
@@ -99,16 +117,7 @@ class DataStore:
         # create SQLAlchemy connection pool
         pool = sqlalchemy.create_engine(
             "postgresql+pg8000://",
-            creator=getconn,
-            pool_size=20,
-            max_overflow=20
+            creator=getconn
         )
         pool.dialect.description_encoding = None
         return pool
-
-
-if __name__ == "__main__":
-    datastore = DataStore()
-    for i in range(1000, 1500):
-        player_req = datastore.get_player(i, 2021)
-        print(player_req)

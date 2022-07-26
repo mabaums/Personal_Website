@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
 
 import connexion
+import logging
+import os
+from logging.config import dictConfig
 
 from swagger_server import encoder
 from flask_cors import CORS
 from flask import send_from_directory
+import logging
+from flask.logging import create_logger
 
 dir_path = '../dist'
 
@@ -20,6 +25,22 @@ def root():
 
 
 def main():
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = 'mark-website-355321-8f106bc32623.json'
+    dictConfig({
+        'version': 1,
+        'formatters': {'default': {
+            'format': '[%(asctime)s] %(levelname)s in %(module)s: %(message)s',
+        }},
+        'handlers': {'wsgi': {
+            'class': 'logging.StreamHandler',
+            'stream': 'ext://flask.logging.wsgi_errors_stream',
+            'formatter': 'default'
+        }},
+        'root': {
+            'level': 'INFO',
+            'handlers': ['wsgi']
+        }
+    })
     app = connexion.App(__name__, specification_dir='./swagger/')
     CORS(app.app)
     app.app.json_encoder = encoder.JSONEncoder
