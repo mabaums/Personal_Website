@@ -1,133 +1,46 @@
-<mat-grid-list cols="10" rowHeight="5%">
-    <mat-grid-tile colspan="1" rowspan="15" class="algorithims">
-        <h2 class="algo-title">Choose algorithm</h2>
-        <mat-radio-group class="radio-group">
-            <mat-radio-button class="radio-button">
-                CNN
-            </mat-radio-button>
-            <mat-radio-button class="radio-button">
-                RFN
-            </mat-radio-button>
-            <mat-radio-button class="radio-button">
-                LSTM
-            </mat-radio-button>
-            <mat-radio-button class="radio-button">
-                Coin Flip
-            </mat-radio-button>
-        </mat-radio-group>
-    </mat-grid-tile>
-    <mat-grid-tile colspan="5" rowspan="4" class="title"><h1 class="title-title">Predict Central</h1>
-    <h2>Here you can choose the algorithim of your choice and predict either a series of games or a singular game </h2></mat-grid-tile>
-    <mat-grid-tile rowspan="14" colspan="5" class="game-predicts">
-        <mat-card class="card"></mat-card>
-        <mat-card class="card"></mat-card>
-        <mat-card class="card"></mat-card>
-        <mat-card class="card"></mat-card>
-        <mat-card class="card"></mat-card>
-        <mat-card class="card"></mat-card>
-        <mat-card class="card"></mat-card>
-        <mat-card class="card"></mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile rowspan="15" colspan="3" class="settings">
-
-    </mat-grid-tile>
-</mat-grid-list>
-<!--
-<div class="center-console-container">
-    <div class="console-header">
-        <h1 class="main-header">Prediction Central</h1>
-        <h2>You can begin by choosing an algorithm and then tweaking indivdual parameters</h2>
-        <h3>You can then save your algorightim </h3>
-
-    </div>
-    <div class="main-predict-console">
-        <div class="algorithims">
-            <h2>Choose an algorithim </h2>
-            <mat-radio-group class="radio-group">
-                <mat-radio-button class="radio-button">
-                    CNN
-                </mat-radio-button>
-                <mat-radio-button class="radio-button">
-                    RFN
-                </mat-radio-button>
-                <mat-radio-button class="radio-button">
-                    LSTM
-                </mat-radio-button>
-                <mat-radio-button class="radio-button">
-                    Coin Flip
-                </mat-radio-button>
-            </mat-radio-group>
-        </div>
-        <div class="algorithm-specifcs"></div>
-        <div class="game-predicts">
-            <h1>Here you can see the games you predict</h1>
+<section>
+    <div class="container">
+        <div class="predict-header">
+            <h1 class="fs-secondary-heading fw-bold">
+                Predict Central
+            </h1>
+            <p> Here you can mess with settings and see what you can predict</p>
         </div>
     </div>
-</div>
--->
-
-
-<!--
-
-<div class="center">
-    <h1>Predict either a round or a specific game</h1>
-    <div>
-        <span>
-            <mat-form-field>
-                <mat-label>
-                    Game Week
-                </mat-label>
-                <mat-select [(value)]="selectedWeek">
-                    <mat-option *ngFor="let gameWeek of gameWeeks" [value]="gameWeek.value">
-                        {{gameWeek.viewValue}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </span>
-        <button mat-flat-button color="primary" class="button" (click)="predictRound(selectedWeek)"
-            [disabled]="isLoading">Predict Round</button>
-        <div class="right">        <p>Choose which algorightim and other stats here</p></div>
-
-        <div>
-            <mat-form-field>
-                <mat-label>
-                    Home Team
-                </mat-label>
-                <mat-select [(value)]="selectedHomeTeam">
-                    <mat-option *ngFor="let team of teams" [value]="team.value">
-                        {{team.viewValue}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>
-                    Away Team
-                </mat-label>
-                <mat-select [(value)]="selectedAwayTeam">
-                    <mat-option *ngFor="let team of teams" [value]="team.value">
-                        {{team.viewValue}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>  
-            <button mat-flat-button color="primary" [disabled]="isLoading" (click)="predict(selectedHomeTeam,selectedAwayTeam)">Predict Game</button>
+</section>
+<section>
+    <div class="container">
+        <div class="even-columns">
+            <div class="algo-choose">
+                <h3>Choose an algorithm</h3>
+                <ul class="algos">
+                    <li *ngFor="let algo of algos" class="algo-choice">
+                        <button class="algo-button" [class.selected]="algo === selectedAlgo" type="button" (click)="onSelect(algo)">
+                           <span class="viewValue">{{algo.viewValue}}</span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <div class="settings">
+                <div class="slidecontainer">
+                    <h3> Epochs </h3>
+                    <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+                </div>
+                <div class="slidecontainer">
+                    <h3> Batch Size</h3>
+                    <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+                </div>
+                <div class="slidecontainer">
+                    <h3> eta </h3>
+                    <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+                </div>
+            </div>
         </div>
     </div>
-
-    <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
-</div>
-
-<div *ngIf="predictedRound" class="center">
-    <table mat-table [dataSource]="predictedRound" class="mat-elevation-z8">
-        <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns">
-            <th mat-header-cell *matHeaderCellDef> {{column}}
-            </th>
-            <td mat-cell *matCellDef="let element" class="black-text"> {{element[column]}} </td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-            [ngClass]="{'make-red': row['Predicted Result'] != row['Full Time Result'], 'make-green' : row['Predicted Result'] == row['Full Time Result']}">
-        </tr>
-    </table>
-</div>
-
--->
+</section>
+<section>
+    <div class="container">
+        <div class="predicted-header"></div>
+        <div class="predicted-games"></div>
+    </div>
+</section>

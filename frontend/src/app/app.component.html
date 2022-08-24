@@ -1,57 +1,24 @@
-<div class="page">
-  <mat-toolbar>
-    <button mat-icon-button (click)="snav.toggle()">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>Beat the machine</span></mat-toolbar>
-  
-  <mat-sidenav-container  class="sidenav-content">
-    <mat-sidenav #snav>
-      <mat-nav-list>
-        <a mat-list-item routerLink="/home" (click)="snav.toggle()">
-          <mat-icon>home</mat-icon>
-        </a>
-        <a mat-list-item routerLink="/standings" (click)="snav.toggle()">
-          <mat-icon>sports_soccer</mat-icon>
-        </a>
-        <a mat-list-item routerLink="/predict" (click)="snav.toggle()">
-          <mat-icon>settings_input_component</mat-icon>
-        </a>
-      </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <router-outlet class="content"></router-outlet>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-</div>
-<!--
-<div class="example-container">
-  <mat-toolbar color="primary" class="stickyBar">
-    <button mat-icon-button (click)="snav.toggle()">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span>My App</span>
-  </mat-toolbar>
-  <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
-      fixedTopGap="56">
-      <mat-nav-list>
-        <a mat-list-item routerLink="/home">
-          <mat-icon>home</mat-icon>
-        </a>
-        <a mat-list-item routerLink="/standings">
-          <mat-icon>sports_soccer</mat-icon>
-        </a>
-        <a mat-list-item routerLink="/predict">
-          <mat-icon>settings_input_component</mat-icon>
-        </a>
-      </mat-nav-list>
-    </mat-sidenav>
-
-    <mat-sidenav-content>
-      <router-outlet></router-outlet>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-</div>
-
--->
+<header class="primary-header" id="primaryHeader">
+  <div class="container">
+    <div class="nav-wrapper">
+      <a class="logo">AI Project</a>
+      <button class="mobile-nav-toggle" (click)="mobileNavClick()" *ngIf="mobile_size">
+        <mat-icon *ngIf="!menu_open" class="icon-menu">menu</mat-icon>
+        <mat-icon *ngIf="menu_open" class="icon-close">close</mat-icon>
+      </button>
+      <nav class="primary-navigation" *ngIf="menu_open || !mobile_size">
+        <ul class="nav-list" role="list">
+          <li><a href="/standings" (click)="mobileNavClick()">Standings</a></li>
+          <li><a href="/predict" (click)="mobileNavClick()">Predict</a></li>
+          <li><a href="/home" (click)="mobileNavClick()">About Me</a></li>
+          <li><a href="#" (click)="mobileNavClick()">Create</a></li>
+          <li><a href="#" (click)="mobileNavClick()">Community</a></li>
+        </ul>
+      </nav>
+      <button class="button" *ngIf="width>880">Get Started</button>
+    </div>
+  </div>
+</header>
+<main>
+  <router-outlet></router-outlet>
+</main>

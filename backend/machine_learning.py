@@ -15,183 +15,58 @@ from data.datastore import DataStore
 
 class MachineLearning:
 
-    def __init__(self, dataStore=DataStore()):
-        self.dataStore = DataStore()
+    def __init__(self, dataStore=None):
+        self.dataStore = dataStore if dataStore is not None else DataStore()
         self.data = []
         self.model = None
         self.score_transformer = RobustScaler()
         self.y_pred = None
 
-    def RFN_predict(self, round_number=38):
-        data = self.dataStore.get_data()
-        data = data[
-            ['HomeTeam', 'AwayTeam', 'FTHG', 'FTAG', 'FTR']]  # This will be data used in the LSTM, with the last
-        # 3 used as the score
-        data['Score'] = data['FTHG'] - data['FTAG']
-        data['Round'] = np.zeros((len(data), 1))  # This is sort of chronological, although in reality there are days
-        # were some teams won't play or get rescheduled so the LSTM may be less accurate as they will not actually be in
-        # order for now
-        curr_round = 1
+    def RFN_predict(self, round_number=38, league_id=39):
 
-        '''
-
-        #This following loop sets the round numbers to each fixture
-        '''
-
-        for row in range(1, len(data) + 1):
-            data['Round'][row - 1] = curr_round
-            if (row % 10) == 0:
-                curr_round += 1
-        teams = list(set(data['HomeTeam'].values))  # creating a list containing every team
-        n_teams = len(teams)  # number of teams
-        teamToIdx = {t: i for i, t in enumerate(teams)}  # our team vocabulary
-        homeId = [teamToIdx[id] for id in
-                  list(data['HomeTeam'].values)]  # assigning the games' home teams their corresponding team id
-        data['Home_Id'] = homeId  # creating a new column for the home team id
-        awayId = [teamToIdx[id] for id in
-                  list(data['AwayTeam'].values)]  # assigning the games' away teams their corresponding team id
-        data['Away_Id'] = awayId  # creating a new row for the away team id
-
-        score_transformer = RobustScaler()
-        score_transformer = score_transformer.fit(data[['Score']])
-        data['Score'] = score_transformer.transform(data[['Score']])
-
-        def retransform_y_data(y_test, y_pred):
-            y_actual = score_transformer.inverse_transform(y_test.reshape(1, -1)).reshape(-1, 1)
-            y_pred = score_transformer.inverse_transform(y_pred).reshape(-1, 1)
-            return {'y_actual': y_actual, 'y_pred': y_pred}
-
-        def create_train_test_data(data, round):
-            train_set = data[data['Round'] < round]
-            test_set = data[data['Round'] == round]
-            X_train, y_train = create_dataset(train_set[['Home_Id', 'Away_Id']], train_set.Score)
-            X_test, y_test = create_dataset(test_set[['Home_Id', 'Away_Id']], test_set.Score)
-            return {'train_set': train_set, 'test_set': test_set, 'X_train': X_train, 'y_train': y_train,
-                    'X_test': X_test,
-                    'y_test': y_test}
-
-        def create_dataset(X, y):
-            Xs, ys = [], []
-            for i in range(len(X)):
-                v = X.iloc[i].values
-                Xs.append(v)
-                ys.append(y.iloc[i])
-            return np.array(Xs), np.array(ys)
-
-        current_data = create_train_test_data(data, round_number)
-
+        X_train = [[[1, 3, 5] for x in range(10)] for _ in range(10)]
+        y_train = [[1] for _ in range(10)]
         rf = RandomForestRegressor(n_estimators=1000, random_state=42)
-        rf.fit(current_data['X_train'], current_data['y_train'])
-        y_pred = rf.predict(current_data['X_test'])
-        retransformed_y_data = retransform_y_data(current_data['y_test'], y_pred)
+        rf.fit(X_train, y_train)
 
-        predicted_games = [
-            {"Fixture": i, "Home Team": data['HomeTeam'][(round_number - 1) * 10 + i],
-             "Away Team": data['AwayTeam'][(round_number - 1) * 10 + i],
-             "Predicted GD": str(retransformed_y_data['y_pred'][i][0]),
-             "Predicted Result": str(
-                 "H" if retransformed_y_data['y_pred'][i][0] > .5 else "A" if retransformed_y_data['y_pred'][i][
-                                                                                  0] < -.5 else "D"),
-             "Actual GD": str(retransformed_y_data['y_actual'][i][0]),
-             "Full Time Result": data['FTR'][(round_number - 1) * 10 + i]
-             }
-            for i in range(len(retransformed_y_data['y_pred']))]
-        return predicted_games
-
-    def LSTM_predict(self, round_number=38):
-        return PredictedGame(100, 0, 'chelsea', 'manchester city')
-        data = self.dataStore.get_data()
-        data = data[
-            ['HomeTeam', 'AwayTeam', 'FTHG', 'FTAG', 'FTR']]  # This will be data used in the LSTM, with the last
-        # 3 used as the score
-        data['Score'] = data['FTHG'] - data['FTAG']
-        data['Round'] = np.zeros((len(data), 1))  # This is sort of chronological, although in reality there are days
-        # were some teams won't play or get rescheduled so the LSTM may be less accurate as they will not actually be in
-        # order for now
-        curr_round = 1
-
+        print(X_train)
         '''
+        player_fixtures_df, fixture_df = pd.read_csv('player_fixture.csv'), pd.read_csv(
+            'fixture.csv')  # self.dataStore.get_dataframe_player_fixture(league_id)
+        fixture_df['FTR'] = fixture_df['home_goals'] - fixture_df['away_goals']
+        rating_avgs = player_fixtures_df.groupby(['fixture_id', 'team_id']).rating.mean()
+        # print(rating_avgs.to_dict())
+        fixture_df['h_a_r'] = [rating_avgs[(row['fixture_id'], row['home_id'])] for i, row in fixture_df.iterrows()] # home average rating
+        fixture_df['a_a_r'] = [rating_avgs[(row['fixture_id'], row['away_id'])] for i, row in fixture_df.iterrows()] # away average rating
 
-        #This following loop sets the round numbers to each fixture
+        training_data = fixture_df[fixture_df['round_number'] < round_number]
+        testing_data = fixture_df[fixture_df['round_number'] == round_number]
+
+
+        # fixture_df['h_avg_rating'] = rating_team_avgs[(fixture_df['fixture_id'], fixture_df['home_id'])]
+
+        # print(fixture_df)
+        # print(player_fixtures_df[player_fixtures_df['fixture_id'].isin(training_data['fixture_id'])])
+
+        X_train = np.array(training_data[['home_id', 'away_id']])
+        y_train = np.array(training_data[['home_goals', 'away_goals']])
+
+        X_test = np.array(testing_data[['home_id', 'away_id', 'home_avg_rating', 'away_avg_rating']])
+        y_test = np.array(testing_data[['home_goals', 'away_goals']])
+        rf = RandomForestRegressor(n_estimators=1000, random_state=42)
+        rf.fit(X_train, y_train)
+
+        print(rf.predict(X_test))
+        print(y_test)
+        # print(rf.predict(np.array(testing_data[['home_id', 'away_id']])))
+        # print(testing_data[['home_goals', 'away_goals']])
         '''
+        return None
 
-        for row in range(1, len(data) + 1):
-            data['Round'][row - 1] = curr_round
-            if (row % 10) == 0:
-                curr_round += 1
-        teams = list(set(data['HomeTeam'].values))  # creating a list containing every team
-        n_teams = len(teams)  # number of teams
-        teamToIdx = {t: i for i, t in enumerate(teams)}  # our team vocabulary
-        homeId = [teamToIdx[id] for id in
-                  list(data['HomeTeam'].values)]  # assigning the games' home teams their corresponding team id
-        data['Home_Id'] = homeId  # creating a new column for the home team id
-        awayId = [teamToIdx[id] for id in
-                  list(data['AwayTeam'].values)]  # assigning the games' away teams their corresponding team id
-        data['Away_Id'] = awayId  # creating a new row for the away team id
+    def LSTM_predict(self, round_number=38, league_id=39):
+        return None
 
-        score_transformer = RobustScaler()
-        score_transformer = score_transformer.fit(data[['Score']])
-        data['Score'] = score_transformer.transform(data[['Score']])
 
-        def create_dataset(X, y):
-            Xs, ys = [], []
-            for i in range(len(X)):
-                v = X.iloc[i].values
-                Xs.append(v)
-                ys.append(y.iloc[i])
-            return np.array(Xs), np.array(ys)
-
-        def create_train_test_data(data, round):
-            train_set = data[data['Round'] < round]
-            test_set = data[data['Round'] == round]
-            X_train, y_train = create_dataset(train_set[['Home_Id', 'Away_Id']], train_set.Score)
-            X_test, y_test = create_dataset(test_set[['Home_Id', 'Away_Id']], test_set.Score)
-            return {'train_set': train_set, 'test_set': test_set, 'X_train': X_train, 'y_train': y_train,
-                    'X_test': X_test,
-                    'y_test': y_test}
-
-        def create_model(n_teams, lstm_units=128, optimizer='adam', loss='mean_squared_error', dropout_rate=0.2,
-                         input_length=2, batchsize=10):
-            model = Sequential()
-            model.add(Embedding(n_teams + 1, batchsize, input_length=input_length))
-            model.add(LSTM(units=lstm_units, recurrent_dropout=dropout_rate))
-            model.add(Dropout(rate=dropout_rate))
-            model.add(Dense(units=1))
-            model.compile(optimizer=optimizer, loss=loss)
-            return model
-
-        def train_model(model, X, y, epochs=25, batch_size=10):
-            history = model.fit(X, y,
-                                epochs=epochs,
-                                batch_size=batch_size,
-                                shuffle=False)
-            return history
-
-        def predict_results(model, X):
-            y_pred = model.predict(X)
-            return y_pred
-
-        def retransform_y_data(y_test, y_pred):
-            y_actual = score_transformer.inverse_transform(y_test.reshape(1, -1)).reshape(-1, 1)
-            y_pred = score_transformer.inverse_transform(y_pred).reshape(-1, 1)
-            return {'y_actual': y_actual, 'y_pred': y_pred}
-
-        current_data = create_train_test_data(data, round_number)
-        print(current_data["X_test"])
-        model = create_model(n_teams)
-        history = train_model(model, X=current_data['X_train'], y=current_data['y_train'])
-        y_pred = predict_results(model, current_data['X_test'])
-        retransformed_y_data = retransform_y_data(current_data['y_test'], y_pred)
-
-        predicted_games = [
-            {"Fixture": i, "Home Team": data['HomeTeam'][(round_number - 1) * 10 + i],
-             "Away Team": data['AwayTeam'][(round_number - 1) * 10 + i],
-             "Predicted GD": str(retransformed_y_data['y_pred'][i][0]),
-             "Predicted Result": str(
-                 "H" if retransformed_y_data['y_pred'][i][0] > .5 else "A" if retransformed_y_data['y_pred'][i][
-                                                                                  0] < -.5 else "D"),
-             "Actual GD": str(retransformed_y_data['y_actual'][i][0]),
-             "Full Time Result": data['FTR'][(round_number - 1) * 10 + i]
-             }
-            for i in range(len(retransformed_y_data['y_pred']))]
-        return predicted_games
+if __name__ == '__main__':
+    ml = MachineLearning()
+    ml.RFN_predict(38)

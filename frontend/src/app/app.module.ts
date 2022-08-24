@@ -32,8 +32,8 @@ import { environment } from 'src/environments/environment';
 import { BASE_PATH } from 'api-swagger-library';
 import { TestComponent } from './test/test.component';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatSliderModule } from '@angular/material/slider'
 import { MatCardModule } from '@angular/material/card';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,6 +68,7 @@ import { MatCardModule } from '@angular/material/card';
     MatProgressBarModule,
     MatRadioModule,
     MatGridListModule,
+    MatSliderModule,
     MatCardModule
   ],
   providers: [{ provide: BASE_PATH, useValue: environment.API_BASE_PATH}],

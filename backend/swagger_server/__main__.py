@@ -25,7 +25,6 @@ def root():
 
 
 def main():
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = 'mark-website-355321-8f106bc32623.json'
     dictConfig({
         'version': 1,
         'formatters': {'default': {
